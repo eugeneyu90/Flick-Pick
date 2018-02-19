@@ -29,8 +29,8 @@ class MovieDetails extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      collapse: false,
-      // selected: false
+      //collapse: false,
+      selected: false,
       modal: false
     }
   }
@@ -44,9 +44,9 @@ class MovieDetails extends Component {
 
   toggleSelect = () => {
     this.setState(prevState => ({ // parentheses () are required or else does not update state
-      modal: !prevState.modal
+      selected: !prevState.selected
     }))
-    this.props.addMovie(this.props.movie, !this.state.modal)
+    this.props.addMovie(this.props.movie, !this.state.selected)
   }
 
   render() {
