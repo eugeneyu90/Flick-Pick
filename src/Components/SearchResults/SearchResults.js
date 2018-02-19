@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { ListGroup, ListGroupItem } from 'reactstrap';
+// import { ListGroup, ListGroupItem } from 'reactstrap';
 import axios from 'axios';
-import MovieDetails from './MovieDetails'
+import MovieDetails from '../MovieDetails/MovieDetails'
 
 //API Keys
 const omdbAPI = '1de557f0'
@@ -44,25 +44,20 @@ class SearchResults extends Component {
         lineHeight: 0.25
       }
     }
-    // OMDB Search Results
-    // console.log(searchResults)
-    // searchResults.Response === "True" ? resultsList = searchResults.Search.map((movie) => 
-    //     <ListGroupItem key={movie.imdbID} id={movie.imdbID} style={styles.list} tag="button">
-    //       {`${movie.Title} (${movie.Year})`}
-    //     </ListGroupItem>
-    //   ) : console.log('No data is returned')
 
     //TMDB Search Results
-    console.log(searchResults.results)
-    const spliceNum = (searchResults.total_results > 0 && searchResults.total_results < 5) ? searchResults.total_results : 5
+    // console.log(searchResults.results)
+    const displayNum = (searchResults.total_results > 0 && searchResults.total_results < 5) ? searchResults.total_results : 5
 
-    console.log(`spliceNum is ${spliceNum}`)
+    // console.log(`displayNum is ${displayNum}`)
+    // console.log(searchResults.total_results)
     searchResults.total_results > 0 ? 
-      resultsList = searchResults.results.splice(0, spliceNum).map((movie) =>
-        <MovieDetails key={movie.id} movie={movie} />) : console.log('No data is returned')
-        // <ListGroupItem key={movie.id} id={movie.id} style={styles.list} tag="button">
-        //     {`${movie.title} (${movie.release_date.slice(0, 4)})`}
-        // </ListGroupItem>) : console.log('No data is returned')
+      resultsList = searchResults.results.slice(0, displayNum).map((movie) =>
+        <MovieDetails key={movie.id}
+                      movie={movie} 
+                      addMovie={this.props.addMovie}/>) 
+      : console.log('No data is returned')
+
     return (
       <div>
         {resultsList}

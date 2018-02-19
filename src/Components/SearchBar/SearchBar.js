@@ -8,8 +8,7 @@ const tmdbAPI = '7a9602f5224d26b4db42b9c580059391'
 //API BaseURLs
 const omdbURL = 'http://www.omdbapi.com/'
 const tmdbURL = 'https://api.themoviedb.org/3/search/movie'
-
-
+const tmdbPopularURL = 'https://api.themoviedb.org/3/movie/popular'
 
 class SearchBar extends Component {
   constructor(props) {
@@ -57,30 +56,31 @@ class SearchBar extends Component {
       // console.log(res) // HTTP Request
       const searchResults = res.data
       this.props.handleResults(searchResults)
-    }) : console.log('Empty search, no request is sent...')
+    }) : this.props.clearResults() //console.log('Empty search, no request is sent...')
   }
 
-  // componentDidMount() {
-  //   axios({
-  //     method: 'POST',
-  //     url: `http://www.omdbapi.com/`,
-  //     params: {
-  //       apikey: '1de557f0',
-  //       s: event.target.value,
-  //       type: 'movie'
-  //     }
-  //   }).then(res => {
-  //     const searchResults = res.data
-  //     console.log(res.data.Search)
-  //     this.props.handleResults(searchResults)
-  //   })
-  // }
+
+  componentDidMount() {
+    axios({
+      method: 'GET',
+      url: tmdbPopularURL,
+      params: {
+        api_key: tmdbAPI,
+        language: 'en-US',
+        page: '1'
+      }
+    }).then(res => {
+      const searchResults = res.data
+      // console.log(res.data.Search)
+      this.props.handleResults(searchResults)
+    })
+  }
 
   render() {
     return (
       <Form>
         <FormGroup>
-          <Input type="text" name="searchBar" value={this.state.userInput} onChange={this.handleInput} placeholder="Search a movie" />
+          <Input autoComplete="off" type="text" name="searchBar" value={this.state.userInput} onChange={this.handleInput} placeholder="Search a movie" />
         </FormGroup>
       </Form>
     )
