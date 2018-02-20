@@ -25,7 +25,6 @@ class MovieDetails extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      //collapse: false,
       selected: this.props.watchList.find(movie => { return movie.id === Number(this.props.movie.id) }) !== undefined ? true : false,
       modal: false,
       open: false,
@@ -35,7 +34,6 @@ class MovieDetails extends Component {
     
   toggle = () => {
     this.setState({ 
-      // collapse: !this.state.collapse
       modal: !this.state.modal
     });
   }
@@ -60,16 +58,19 @@ class MovieDetails extends Component {
   }
 
   checkDimensions = ({ target: img }) => {
-    console.log(img.offsetWidth)
-    console.log(img.offsetHeight)
+    // console.log(img.offsetWidth)
+    // console.log(img.offsetHeight)
     this.setState({
       dimensions:{ 
-        width: img.width,
-        height: img.height,
+        width: img.offsetWidth,
+        height: img.offsetHeight,
       }
     })
+    this.props.updateHeightArray(img.offsetHeight)
   }
 
+ 
+  
   render() {
     const { title, release_date, overview, poster_path, backdrop_path } = this.props.movie
     const { width, height } = this.state.dimensions;
@@ -107,6 +108,10 @@ class MovieDetails extends Component {
       },
       noPadding: {
         padding: 0
+      },
+      imgPadding: {
+        backgroundColor: 'black',
+        paddingTop: (Math.abs(this.props.commonHeight - this.state.dimensions.height)) > 0 ? (Math.abs(this.props.commonHeight - this.state.dimensions.height)) + 1 : 0,
       }
     }
     const actions = [
@@ -126,7 +131,8 @@ class MovieDetails extends Component {
             // onClick={this.handleOpen} 
           >
             <img 
-              height={ this.state.dimensions.height === 196 ? 198 : this.state.dimensions.height }
+              // height={ this.props.commonHeight !== this.state.dimensions.height ? this.props.commonHeight : this.state.dimensions.height }
+              style={styles.imgPadding}
               onLoad={this.checkDimensions} 
               src={posterURL+poster_path} 
               alt={title} 
