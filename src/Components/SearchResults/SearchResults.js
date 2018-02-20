@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 // import { ListGroup, ListGroupItem } from 'reactstrap';
+// import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+
 import axios from 'axios';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MovieDetails from '../MovieDetails/MovieDetails'
 
 //API Keys

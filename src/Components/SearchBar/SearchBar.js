@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+// import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import ReactDOM from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import TextField from 'material-ui/TextField';
+
 
 //API Keys
 const omdbAPI = '1de557f0'
@@ -59,7 +63,6 @@ class SearchBar extends Component {
     }) : this.props.clearResults() //console.log('Empty search, no request is sent...')
   }
 
-
   componentDidMount() {
     axios({
       method: 'GET',
@@ -77,12 +80,23 @@ class SearchBar extends Component {
   }
 
   render() {
+    const styles = {
+      textColor: {
+        color: 'white'
+      }
+    }
     return (
-      <Form>
-        <FormGroup>
-          <Input autoComplete="off" type="text" name="searchBar" value={this.state.userInput} onChange={this.handleInput} placeholder="Search a movie" />
-        </FormGroup>
-      </Form>
+      <MuiThemeProvider >
+        {/* <div style={styles.textColor}> */}
+          <TextField 
+            type="text" 
+            name="searchBar" 
+            fullWidth={true}
+            value={this.state.userInput} 
+            onChange={this.handleInput} 
+            hintText="Search a movie" />
+        {/* </div> */}
+      </MuiThemeProvider >
     )
   }
 }

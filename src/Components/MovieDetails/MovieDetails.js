@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { Collapse, Button } from 'reactstrap';
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
 
 import axios from 'axios';
 
@@ -31,7 +35,8 @@ class MovieDetails extends Component {
     this.state = {
       //collapse: false,
       selected: false,
-      modal: false
+      modal: false,
+      open: false
     }
   }
     
@@ -49,63 +54,104 @@ class MovieDetails extends Component {
     this.props.addMovie(this.props.movie, !this.state.selected)
   }
 
+  handleOpen = () => {
+    this.setState({
+      open: true
+    })
+  }
+
+  handleClose = () => {
+    this.setState({
+      open: false
+    })
+  }
+
   render() {
-    const { id, title, release_date, overview, poster_path } = this.props.movie
+    const { id, title, release_date, overview, poster_path, backdrop_path } = this.props.movie
+    const added = '#5BC16C'
+    const notAdded = '#D4DDDF'
     const styles = {
       resultButton: {
         textAlign: 'left',
       },
       checked: {
-        color: '#5BC16C',
+        color: '#5BC16C', //green
       },
       unchecked: {
-        color: '#D4DDDF'
+        color: '#D4DDDF'  //grey
       },
-      moviePoster: {
-        backgroundImage: `url(${posterURL+poster_path})`,
-        width: 50,
-        height: 'auto',
-
+      movieBackground: {
+        backgroundImage: `url(${posterURL}${backdrop_path})`,
+        backgroundSize: 'cover',
+        backgroundColor: 'black',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center top',
+        width: '100vw'
+      },
+      modalTheme: {
+        opacity: 0.9,
+        backgroundColor: 'white',
+        color: 'black',
+        borderRadius: 4,
+        borderWidth: 0.5, 
+        borderColor: this.state.selected ? added : notAdded 
       }
     }
-
+    const actions = [
+      <IconButton tooltip="Click to select..." onClick={this.toggleSelect} >
+        <FontIcon className="material-icons" color={this.state.selected ? added : notAdded }>add</FontIcon>
+      </IconButton>,
+    ]
+    console.log(this.props.movie)
     return (
-      <div>
-        <img color="secondary" src={posterURL+poster_path} width="200" onClick={this.toggle}/>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={title}>
-          <ModalHeader toggle={this.toggle}>{title}</ModalHeader>
-          <ModalBody>
-            {overview}
-          </ModalBody>
-          <ModalFooter>
-            <Button type="button"
-                    color="secondary"
-                    onClick={this.toggleSelect}>
-              <span className="glyphicon glyphicon-ok"
-                    style={this.state.selected ? styles.checked : styles.unchecked}
-                    aria-hidden="true">
-              </span>
-            </Button>
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-          </ModalFooter>
-        </Modal>
-      </div>
+      <MuiThemeProvider>
+        <Card>
+          <CardMedia 
+            // overlay={<CardTitle 
+            //           title={title} 
+            //           subtitle={release_date} />}
+            // onClick={this.handleOpen} 
+          >
+            <img src={posterURL+poster_path} alt={title} label="Dialog" onClick={this.handleOpen} />
+          </CardMedia>
+          <Dialog
+            title={title}
+            style={{...styles.movieBackground}}
+            titleStyle={styles.modalTheme}
+            bodyStyle={styles.modalTheme}
+            actionsContainerStyle={styles.modalTheme}
+            actions={actions}
+            modal={false}
+            open={this.state.open}
+            onRequestClose={this.handleClose}
+          > 
+            <img>
+            
+            </img>
+            <p> Release Date: {release_date} </p>
+            <p> Plot: {overview} </p>
+
+          </Dialog>
+          {/* <CardTitle title={title} subtitle={release_date} /> */}
+          {/* <CardText>{overview}</CardText> */}
+          {/* <CardActions>
+            <IconButton tooltip="Font Icon" onClick={this.toggleSelect}>
+              <FontIcon className="material-icons" style={this.state.selected ? styles.checked : styles.unchecked}>done</FontIcon>
+            </IconButton>
+          </CardActions> */}
+        </Card>
+      </MuiThemeProvider>
     )
 
-
-
-    // Accordion Like Display
     // return (
     //   <div>
-    //     <Button color="secondary" style={styles.resultButton} onClick={this.toggle} block>
-    //       {`${title} (${release_date.slice(0, 4)})`}
-    //     </Button>
-    //     <Collapse isOpen={this.state.collapse}>
-    //       <Card>
-    //         <CardImg top
-    //                  width="25%"
-    //                  className="center-block"
-    //                  src={`${posterURL}${poster_path}`} alt={`${title}_poster`} />
+    //     <img color="secondary" src={posterURL+poster_path} width="200" onClick={this.toggle}/>
+    //     <Modal isOpen={this.state.modal} toggle={this.toggle} className={title}>
+    //       <ModalHeader toggle={this.toggle}>{title}</ModalHeader>
+    //       <ModalBody>
+    //         {overview}
+    //       </ModalBody>
+    //       <ModalFooter>
     //         <Button type="button"
     //                 color="secondary"
     //                 onClick={this.toggleSelect}>
@@ -114,12 +160,9 @@ class MovieDetails extends Component {
     //                 aria-hidden="true">
     //           </span>
     //         </Button>
-    //         <CardBody>
-    //           <CardTitle>{title}</CardTitle>
-    //           <CardText>{overview}</CardText>
-    //         </CardBody>
-    //       </Card>
-    //     </Collapse>
+    //         <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+    //       </ModalFooter>
+    //     </Modal>
     //   </div>
     // )
   }
