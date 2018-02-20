@@ -34,9 +34,9 @@ class MovieDetails extends Component {
     super(props)
     this.state = {
       //collapse: false,
-      selected: false,
+      selected: this.props.watchList.find(movie => { return movie.id == this.props.movie.id }) != undefined ? true : false,
       modal: false,
-      open: false
+      open: false,
     }
   }
     
@@ -68,6 +68,10 @@ class MovieDetails extends Component {
 
   render() {
     const { id, title, release_date, overview, poster_path, backdrop_path } = this.props.movie
+    // console.log(this.props.movie)
+    // console.log('watchlist')
+    // console.log(this.props.watchList)
+    console.log(this.props.watchList.find(movie => { return movie.id == this.props.movie.id }) != undefined ? true : false)
     const added = '#5BC16C'
     const notAdded = '#D4DDDF'
     const styles = {
@@ -92,20 +96,22 @@ class MovieDetails extends Component {
         opacity: 0.9,
         backgroundColor: 'white',
         color: 'black',
+      },
+      selectedMovie: {
         borderRadius: 4,
         borderWidth: 0.5, 
         borderColor: this.state.selected ? added : notAdded 
       }
     }
     const actions = [
-      <IconButton tooltip="Click to select..." onClick={this.toggleSelect} >
+      <IconButton onClick={this.toggleSelect} >
         <FontIcon className="material-icons" color={this.state.selected ? added : notAdded }>add</FontIcon>
       </IconButton>,
     ]
-    console.log(this.props.movie)
+    // console.log(this.props.movie)
     return (
       <MuiThemeProvider>
-        <Card>
+        <Card containerStyle={styles.selectedMovie} >
           <CardMedia 
             // overlay={<CardTitle 
             //           title={title} 
@@ -132,13 +138,6 @@ class MovieDetails extends Component {
             <p> Plot: {overview} </p>
 
           </Dialog>
-          {/* <CardTitle title={title} subtitle={release_date} /> */}
-          {/* <CardText>{overview}</CardText> */}
-          {/* <CardActions>
-            <IconButton tooltip="Font Icon" onClick={this.toggleSelect}>
-              <FontIcon className="material-icons" style={this.state.selected ? styles.checked : styles.unchecked}>done</FontIcon>
-            </IconButton>
-          </CardActions> */}
         </Card>
       </MuiThemeProvider>
     )

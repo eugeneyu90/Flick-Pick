@@ -15,7 +15,7 @@ class App extends Component {
     super()
     this.state = {
       searchResults: [],
-      selection: []
+      watchList: []
     }
   }
 
@@ -36,15 +36,15 @@ class App extends Component {
   }
 
   addMovie = (movie, add) => {
-    const { selection } = this.state
+    const { watchList } = this.state
     if(add === true) { 
       this.setState({
-        selection: selection.concat(movie) 
+        watchList: watchList.concat(movie) 
       })
     } else {
-      selection.splice(selection.indexOf(movie), 1)
+      watchList.splice(watchList.indexOf(movie), 1)
       this.setState({
-        selection: selection
+        watchList: watchList
       })
     }
   }
@@ -59,29 +59,38 @@ class App extends Component {
         // backgroundColor: '#141B41'
       },
       gridList: {
-        width: '90%',
+        // width: '90%',
         overflowY: 'auto',
         paddingLeft: 75,
         paddingRight: 75 
       },
-      displayFixed: {
+      fixedNav: {
         position: 'fixed',
-        top: 0
+        paddingLeft: 75,
+        paddingRight: 75,
+        zIndex: 1,
+        width: '100%'
+      },
+      offset: {
+        paddingTop: 120
       }
     }
 
     return (
       <MuiThemeProvider>
         <div style={styles.root}>
+          <div style={styles.fixedNav} >
+            <AppBar title="Movie Roulette" iconClassNameRight="muidocs-icon-navigation-expand-more" />
+            <SearchBar handleResults={this.handleResults} clearResults={this.clearResults} />
+          </div>
           <GridList 
             cols={1}
             cellHeight='auto'
             padding={1}
             style={styles.gridList} >
-            <AppBar title="Movie Roulette" iconClassNameRight="muidocs-icon-navigation-expand-more" style={styles.displayFixed}/>
-            <SearchBar handleResults={this.handleResults} clearResults={this.clearResults} />
-            <SearchResults searchResults={this.state.searchResults} addMovie={this.addMovie} />
-            <BottomNav />
+            <div styles={styles.offset}></div>
+            <SearchResults searchResults={this.state.searchResults} addMovie={this.addMovie} watchList={this.state.watchList} />
+            <BottomNav style={styles.displayFixed} />
           </GridList>
         </div>
       </MuiThemeProvider>

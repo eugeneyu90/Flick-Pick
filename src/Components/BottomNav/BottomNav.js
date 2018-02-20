@@ -25,14 +25,9 @@ class BottomNav extends Component {
       <Paper zDepth={1}>
         <BottomNavigation selectedIndex={this.state.selectedIndex}>
           <BottomNavigationItem
-            label="Recents"
-            icon={recentsIcon}
-            onClick={() => this.select(0)}
-          />
-          <BottomNavigationItem
-            label="Favorites"
+            label="My Watchlist"
             icon={favoritesIcon}
-            onClick={() => this.select(1)}
+            onClick={() => this.select(0)}
           />
         </BottomNavigation>
       </Paper>

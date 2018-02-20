@@ -47,7 +47,6 @@ class SearchResults extends Component {
         lineHeight: 0.25
       }
     }
-
     //TMDB Search Results
     // console.log(searchResults.results)
     const displayNum = (searchResults.total_results > 0 && searchResults.total_results < 5) ? searchResults.total_results : 5
@@ -58,7 +57,8 @@ class SearchResults extends Component {
       resultsList = searchResults.results.slice(0, displayNum).map((movie) =>
         <MovieDetails key={movie.id}
                       movie={movie} 
-                      addMovie={this.props.addMovie}/>) 
+                      addMovie={this.props.addMovie}
+                      watchList={this.props.watchList} />)
       : console.log('No data is returned')
 
     return (

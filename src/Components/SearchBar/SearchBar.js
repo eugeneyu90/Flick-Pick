@@ -22,25 +22,6 @@ class SearchBar extends Component {
     }
   }
 
-  // Movie Search using OMDB API
-  // handleInput = (event) => {
-  //   this.setState({
-  //     userInput: event.target.value
-  //   })
-  //   axios({
-  //     method: 'GET',
-  //     url: omdbURL,
-  //     params: {
-  //       apikey: omdbAPI,
-  //       s: event.target.value,
-  //       type: 'movie'
-  //     }
-  //   }).then(res => {
-  //     const searchResults = res.data
-  //     this.props.handleResults(searchResults)
-  //   })
-  // }
-
   // Movie Search using TMDB API
   handleInput = (event) => {
     this.setState({
@@ -83,19 +64,29 @@ class SearchBar extends Component {
     const styles = {
       textColor: {
         color: 'white'
+      },
+      whiteBg: {
+        backgroundColor: 'white',
+      },
+      center: {
+        textAlign: 'center'
       }
     }
     return (
       <MuiThemeProvider >
-        {/* <div style={styles.textColor}> */}
+        <div style={styles.center}>
           <TextField 
             type="text" 
-            name="searchBar" 
+            name="searchBar"
+            hintText="Search a movie"
+            style={styles.whiteBg}
+            inputStyle={styles.center}
+            hintStyle={styles.center}
+            // textareaStyle={styles.center}
             fullWidth={true}
             value={this.state.userInput} 
-            onChange={this.handleInput} 
-            hintText="Search a movie" />
-        {/* </div> */}
+            onChange={this.handleInput} /> 
+        </div>
       </MuiThemeProvider >
     )
   }
