@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
 import './App.css'
 import SearchBar from '../SearchBar/SearchBar'
 import SearchResults from '../SearchResults/SearchResults'
@@ -8,7 +7,6 @@ import BottomNav from '../BottomNav/BottomNav'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import { GridList } from 'material-ui/GridList'
-import IconButton from 'material-ui/IconButton'
 
 class App extends Component {
   constructor() {
@@ -73,25 +71,30 @@ class App extends Component {
       },
       offset: {
         paddingTop: 120
+      },
+      resultsPadding: {
+        paddingLeft: 75,
+        paddingRight: 75,
       }
     }
 
     return (
       <MuiThemeProvider>
-        <div style={styles.root}>
-          <div style={styles.fixedNav} >
+        <div className="container-fluid">
+          <div className="row" style={styles.fixedNav} >
             <AppBar title="Movie Roulette" iconClassNameRight="muidocs-icon-navigation-expand-more" />
             <SearchBar handleResults={this.handleResults} clearResults={this.clearResults} />
           </div>
-          <GridList 
-            cols={1}
-            cellHeight='auto'
-            padding={1}
-            style={styles.gridList} >
-            <div styles={styles.offset}></div>
+          <main className="row" style={{...styles.offset, ...styles.resultsPadding}}>
+          {/* // <GridList 
+          //   cols={1}
+          //   cellHeight='auto'
+          //   padding={1}
+          //   style={styles.gridList} > */}
             <SearchResults searchResults={this.state.searchResults} addMovie={this.addMovie} watchList={this.state.watchList} />
+          </main>
             <BottomNav style={styles.displayFixed} />
-          </GridList>
+          {/* </GridList> */}
         </div>
       </MuiThemeProvider>
     )

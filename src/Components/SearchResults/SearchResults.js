@@ -3,15 +3,14 @@ import React, { Component } from 'react'
 // import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 import axios from 'axios';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MovieDetails from '../MovieDetails/MovieDetails'
 
 //API Keys
-const omdbAPI = '1de557f0'
+// const omdbAPI = '1de557f0'
 const tmdbAPI = '7a9602f5224d26b4db42b9c580059391'
 //API BaseURLs
-const omdbURL = 'http://www.omdbapi.com/'
-const tmdbURL = 'https://api.themoviedb.org/3/'
+// const omdbURL = 'http://www.omdbapi.com/'
+// const tmdbURL = 'https://api.themoviedb.org/3/'
 // const tmdbURL = 'https://api.themoviedb.org/3/search/movie'
 // const tmdbURL = 'https://api.themoviedb.org/3/find/'
 
@@ -19,7 +18,8 @@ class SearchResults extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      imdbID: ''
+      imdbID: '',
+      commonImgHeight: {}
     }
   }
 
@@ -39,17 +39,18 @@ class SearchResults extends Component {
     })
   }
 
+  updateHeightArray = (height) => {
+    this.setState({
+      commonImgHeight: this.commonImgHeight.concat(height)
+    })
+  }
+
   render() {
     let { searchResults } = this.props
     let resultsList = []
-    const styles = {
-      list: {
-        lineHeight: 0.25
-      }
-    }
     //TMDB Search Results
     // console.log(searchResults.results)
-    const displayNum = (searchResults.total_results > 0 && searchResults.total_results < 5) ? searchResults.total_results : 5
+    const displayNum = (searchResults.total_results > 0 && searchResults.total_results < 5) ? searchResults.total_results : 20
 
     // console.log(`displayNum is ${displayNum}`)
     // console.log(searchResults.total_results)
@@ -58,7 +59,9 @@ class SearchResults extends Component {
         <MovieDetails key={movie.id}
                       movie={movie} 
                       addMovie={this.props.addMovie}
-                      watchList={this.props.watchList} />)
+                      watchList={this.props.watchList} 
+                      commonImgHeight={this.state.commonImgHeight}
+                      updateHeightArray={this.updateHeightArray} />)
       : console.log('No data is returned')
 
     return (

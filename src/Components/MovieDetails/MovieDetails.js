@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Card, CardActions, CardMedia } from 'material-ui/Card';
+// import FlatButton from 'material-ui/FlatButton';
+// import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 
-import axios from 'axios';
-
-//API Keys
-const omdbAPI = '1de557f0'
-const tmdbAPI = '7a9602f5224d26b4db42b9c580059391'
-//API BaseURLs
-const omdbURL = 'http://www.omdbapi.com/'
-const tmdbURL = 'https://api.themoviedb.org/3/'
 const posterURL = 'http://image.tmdb.org/t/p/original'
 
 // Get IMDB ID from API
@@ -34,9 +26,10 @@ class MovieDetails extends Component {
     super(props)
     this.state = {
       //collapse: false,
-      selected: this.props.watchList.find(movie => { return movie.id == this.props.movie.id }) != undefined ? true : false,
+      selected: this.props.watchList.find(movie => { return movie.id === Number(this.props.movie.id) }) !== undefined ? true : false,
       modal: false,
       open: false,
+      dimensions: {}
     }
   }
     
@@ -66,12 +59,22 @@ class MovieDetails extends Component {
     })
   }
 
+  checkDimensions = ({ target: img }) => {
+    console.log(img.offsetWidth)
+    console.log(img.offsetHeight)
+    this.setState({
+      dimensions:{ 
+        width: img.width,
+        height: img.height,
+      }
+    })
+  }
+
   render() {
-    const { id, title, release_date, overview, poster_path, backdrop_path } = this.props.movie
-    // console.log(this.props.movie)
-    // console.log('watchlist')
-    // console.log(this.props.watchList)
-    console.log(this.props.watchList.find(movie => { return movie.id == this.props.movie.id }) != undefined ? true : false)
+    const { title, release_date, overview, poster_path, backdrop_path } = this.props.movie
+    const { width, height } = this.state.dimensions;
+    // console.log(this.props.watchList.find(movie => { return movie.id === Number(this.props.movie.id) }) !== undefined ? true : false)
+
     const added = '#5BC16C'
     const notAdded = '#D4DDDF'
     const styles = {
@@ -101,6 +104,9 @@ class MovieDetails extends Component {
         borderRadius: 4,
         borderWidth: 0.5, 
         borderColor: this.state.selected ? added : notAdded 
+      },
+      noPadding: {
+        padding: 0
       }
     }
     const actions = [
@@ -110,7 +116,8 @@ class MovieDetails extends Component {
     ]
     // console.log(this.props.movie)
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider >
+        <div className="col s4 m3 l2" style={styles.noPadding} >
         <Card containerStyle={styles.selectedMovie} >
           <CardMedia 
             // overlay={<CardTitle 
@@ -118,7 +125,14 @@ class MovieDetails extends Component {
             //           subtitle={release_date} />}
             // onClick={this.handleOpen} 
           >
-            <img src={posterURL+poster_path} alt={title} label="Dialog" onClick={this.handleOpen} />
+            <img 
+              height={ this.state.dimensions.height === 196 ? 198 : this.state.dimensions.height }
+              onLoad={this.checkDimensions} 
+              src={posterURL+poster_path} 
+              alt={title} 
+              label="Dialog" 
+              onClick={this.handleOpen} 
+            />
           </CardMedia>
           <Dialog
             title={title}
@@ -139,6 +153,7 @@ class MovieDetails extends Component {
 
           </Dialog>
         </Card>
+        </div>
       </MuiThemeProvider>
     )
 

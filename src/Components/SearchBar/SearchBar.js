@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 // import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 
 
 //API Keys
-const omdbAPI = '1de557f0'
 const tmdbAPI = '7a9602f5224d26b4db42b9c580059391'
 //API BaseURLs
-const omdbURL = 'http://www.omdbapi.com/'
 const tmdbURL = 'https://api.themoviedb.org/3/search/movie'
 const tmdbPopularURL = 'https://api.themoviedb.org/3/movie/popular'
 
