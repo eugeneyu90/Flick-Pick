@@ -6,6 +6,11 @@ import { Card, CardActions, CardMedia } from 'material-ui/Card';
 import Dialog from 'material-ui/Dialog';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
+import Img from 'react-image';
+import VisibilitySensor from 'react-visibility-sensor'
+import CircularProgress from 'material-ui/CircularProgress';
+
+
 
 const posterURL = 'http://image.tmdb.org/t/p/original'
 
@@ -28,7 +33,9 @@ class MovieDetails extends Component {
       selected: this.props.watchList.find(movie => { return movie.id === Number(this.props.movie.id) }) !== undefined ? true : false,
       modal: false,
       open: false,
-      dimensions: {}
+      hover: false,
+      width: '',
+      height: ''
     }
   }
     
@@ -58,24 +65,23 @@ class MovieDetails extends Component {
   }
 
   checkDimensions = ({ target: img }) => {
-    // console.log(img.offsetWidth)
-    // console.log(img.offsetHeight)
-    this.setState({
-      dimensions:{ 
-        width: img.offsetWidth,
-        height: img.offsetHeight,
-      }
-    })
     this.props.updateHeightArray(img.offsetHeight)
+    this.setState({
+      width: img.width,
+      height: img.height
+    })
   }
 
- 
+  toggleHover = () => {
+    this.setState(prevState => ({
+      hover: !prevState.hover
+    }))
+  }
   
   render() {
     const { title, release_date, overview, poster_path, backdrop_path } = this.props.movie
-    const { width, height } = this.state.dimensions;
     // console.log(this.props.watchList.find(movie => { return movie.id === Number(this.props.movie.id) }) !== undefined ? true : false)
-
+    // const preloadedImage = 
     const added = '#5BC16C'
     const notAdded = '#D4DDDF'
     const styles = {
@@ -109,10 +115,23 @@ class MovieDetails extends Component {
       noPadding: {
         padding: 0
       },
-      imgPadding: {
+      imgHeight: {
+        height: this.props.commonHeight,
         backgroundColor: 'black',
-        paddingTop: (Math.abs(this.props.commonHeight - this.state.dimensions.height)) > 0 ? (Math.abs(this.props.commonHeight - this.state.dimensions.height)) + 1 : 0,
+        align: 'middle'
+      },
+      hover: {
+        zIndex: 9,
+        position: 'relative',
+        transform: 'scale(1.2)',
+        transition: 'all 200ms linear',
+        boxShadow: '0px 0px 10px #000000'
+      },
+      img: {
+        // transform: 'scale(1)',
+        // transition: 'all 200ms linear'
       }
+      
     }
     const actions = [
       <IconButton onClick={this.toggleSelect} >
@@ -124,20 +143,21 @@ class MovieDetails extends Component {
       <MuiThemeProvider >
         <div className="col s4 m3 l2" style={styles.noPadding} >
         <Card containerStyle={styles.selectedMovie} >
-          <CardMedia 
+          <CardMedia style={styles.imgHeight}
             // overlay={<CardTitle 
             //           title={title} 
             //           subtitle={release_date} />}
             // onClick={this.handleOpen} 
           >
             <img 
-              // height={ this.props.commonHeight !== this.state.dimensions.height ? this.props.commonHeight : this.state.dimensions.height }
-              style={styles.imgPadding}
               onLoad={this.checkDimensions} 
               src={posterURL+poster_path} 
               alt={title} 
               label="Dialog" 
-              onClick={this.handleOpen} 
+              onClick={this.handleOpen}
+              style={this.state.hover ? styles.hover : ''}
+              onMouseEnter={this.toggleHover} 
+              onMouseLeave={this.toggleHover}
             />
           </CardMedia>
           <Dialog

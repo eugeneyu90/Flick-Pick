@@ -74,7 +74,7 @@ class SearchResults extends Component {
       })
     }
   }
-
+  
   render() {
     let { searchResults } = this.props
     let resultsList = []
