@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Card, CardActions, CardMedia } from 'material-ui/Card';
+import { Card, CardActions, CardMedia, CardTitle } from 'material-ui/Card';
 // import FlatButton from 'material-ui/FlatButton';
 // import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-import Img from 'react-image';
-import VisibilitySensor from 'react-visibility-sensor'
 import CircularProgress from 'material-ui/CircularProgress';
+import Paper from 'material-ui/Paper';
 
 
 
@@ -84,6 +83,10 @@ class MovieDetails extends Component {
     // const preloadedImage = 
     const added = '#5BC16C'
     const notAdded = '#D4DDDF'
+  
+    // const notAdded = '#6c6a6a' //dark gray
+    const paperShadowDefault = 'rgba(0, 0, 0, 0.25) 0px 14px 45px, rgba(0, 0, 0, 0.22) 0px 10px 18px'
+    const paperShadowSelected = 'rgba(76, 199, 97, 0.25) 0px 14px 45px, rgba(76, 199, 97, 0.5) 0px 10px 18px'
     const styles = {
       resultButton: {
         textAlign: 'left',
@@ -108,9 +111,10 @@ class MovieDetails extends Component {
         color: 'black',
       },
       selectedMovie: {
-        borderRadius: 4,
-        borderWidth: 0.5, 
-        borderColor: this.state.selected ? added : notAdded 
+        // height: this.state.height,
+        backgroundColor: 'lightgrey',
+        opacity: 0.5,
+
       },
       noPadding: {
         padding: 0
@@ -121,64 +125,91 @@ class MovieDetails extends Component {
         align: 'middle'
       },
       hover: {
-        zIndex: 9,
+        zIndex: this.state.hover ? 3 : 1,
         position: 'relative',
         transform: 'scale(1.2)',
         transition: 'all 200ms linear',
         boxShadow: '0px 0px 10px #000000'
       },
-      img: {
-        // transform: 'scale(1)',
-        // transition: 'all 200ms linear'
+      imgWrapper: {
+        position: 'relative'
+      },
+      checkmarked: {
+        position: 'absolute',
+        zIndex: this.state.hover ? 3 : 2,
+        top: '10px',
+        right: '10px',
+        // fontSize: '24px',
+        // width: '25px',
+        // height: '25px',
+        backgroundColor: this.state.selected ? 'rgba(76, 199, 97, 0.8)' : 'rgba(255, 255, 255, 0.3)'
+
       }
-      
     }
     const actions = [
       <IconButton onClick={this.toggleSelect} >
-        <FontIcon className="material-icons" color={this.state.selected ? added : notAdded }>add</FontIcon>
-      </IconButton>,
+        <FontIcon className="material-icons.md-48" color={this.state.selected ? added : notAdded }>add</FontIcon>
+      </IconButton>
     ]
     // console.log(this.props.movie)
     return (
       <MuiThemeProvider >
+        {/* <div className="col s4 m3 l2" style={styles.noPadding} > */}
         <div className="col s4 m3 l2" style={styles.noPadding} >
-        <Card containerStyle={styles.selectedMovie} >
-          <CardMedia style={styles.imgHeight}
-            // overlay={<CardTitle 
-            //           title={title} 
-            //           subtitle={release_date} />}
-            // onClick={this.handleOpen} 
-          >
-            <img 
-              onLoad={this.checkDimensions} 
-              src={posterURL+poster_path} 
-              alt={title} 
-              label="Dialog" 
-              onClick={this.handleOpen}
-              style={this.state.hover ? styles.hover : ''}
-              onMouseEnter={this.toggleHover} 
-              onMouseLeave={this.toggleHover}
-            />
-          </CardMedia>
-          <Dialog
-            title={title}
-            style={{...styles.movieBackground}}
-            titleStyle={styles.modalTheme}
-            bodyStyle={styles.modalTheme}
-            actionsContainerStyle={styles.modalTheme}
-            actions={actions}
-            modal={false}
-            open={this.state.open}
-            onRequestClose={this.handleClose}
-          > 
-            <img>
-            
-            </img>
-            <p> Release Date: {release_date} </p>
-            <p> Plot: {overview} </p>
+          <Card >
+            <CardMedia 
+              style={{...styles.imgHeight, ...styles.imgWrapper}} //fix posters which height discrepancies
+              // onClick={this.handleOpen}
+              // overlayStyle={styles.overStyle}
+              // overlayContentStyle={styles.overStyle}
+              // overlayContainerStyle={styles.overStyle}
+              // overlay={
+              //   <IconButton onClick={this.toggleSelect} >
+              //     <FontIcon className="material-icons" color={this.state.selected ? added : notAdded }>add</FontIcon>
+              //   </IconButton>
+              // }
+            >
+              <img 
+                onLoad={this.checkDimensions} 
+                src={posterURL+poster_path} 
+                alt={title} 
+                label="Dialog" 
+                onClick={this.handleOpen}
+                style={this.state.hover ? styles.hover : ''}
+                onMouseEnter={this.toggleHover} 
+                onMouseLeave={this.toggleHover}
+              />
+              <div onClick={this.toggleSelect}>
+                <Paper style={styles.checkmarked} zDepth={3} circle={true} >
+                  <IconButton>
+                    <FontIcon className="material-icons"  color={this.state.selected ? 'white' : notAdded }>add</FontIcon>
+                  </IconButton>
+                </Paper>
+              </div>
 
-          </Dialog>
-        </Card>
+              {/* <span style={styles.checkmarked}>
+                  <FontIcon className="material-icons" color={this.state.selected ? added : notAdded }>add</FontIcon>
+              </span> */}
+            </CardMedia>
+            <Dialog
+              title={title}
+              style={{...styles.movieBackground}}
+              titleStyle={styles.modalTheme}
+              bodyStyle={styles.modalTheme}
+              actionsContainerStyle={styles.modalTheme}
+              actions={actions}
+              modal={false}
+              open={this.state.open}
+              onRequestClose={this.handleClose}
+            > 
+              <img>
+              
+              </img>
+              <p> Release Date: {release_date} </p>
+              <p> Plot: {overview} </p>
+
+            </Dialog>
+          </Card>
         </div>
       </MuiThemeProvider>
     )

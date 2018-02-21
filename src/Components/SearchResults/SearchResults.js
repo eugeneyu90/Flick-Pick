@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import { ListGroup, ListGroupItem } from 'reactstrap';
 // import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 import axios from 'axios';
@@ -62,9 +61,11 @@ class SearchResults extends Component {
       if(count.hasOwnProperty(height)) {
         countArray.push({
           'height': height,
-          'count': count[height]})
+          'count': count[height]
+        })
       }
     }
+    // sort from highest frequency to least
     countArray.sort((a, b) => {
       return a.count < b.count
     })
@@ -74,16 +75,14 @@ class SearchResults extends Component {
       })
     }
   }
-  
+
   render() {
     let { searchResults } = this.props
     let resultsList = []
+
     //TMDB Search Results
-    // console.log(searchResults.results)
     const displayNum = (searchResults.total_results > 0 && searchResults.total_results < 5) ? searchResults.total_results : 20
 
-    // console.log(`displayNum is ${displayNum}`)
-    // console.log(searchResults.total_results)
     searchResults.total_results > 0 ? 
       resultsList = searchResults.results.slice(0, displayNum).map((movie) =>
         <MovieDetails key={movie.id}
@@ -92,8 +91,7 @@ class SearchResults extends Component {
                       watchList={this.props.watchList} 
                       commonHeight={this.state.commonHeight}
                       updateHeightArray={this.updateHeightArray} />)
-      : console.log('No data is returned')
-
+        : console.log('No data is returned')
     return (
       <div>
         {resultsList}

@@ -17,10 +17,6 @@ class App extends Component {
     }
   }
 
-  // componentDidMount = (searchResults) => {
-  //   this.handleResults(searchResults)
-  // }
-
   handleResults = (searchResults) => {
     this.setState({
       searchResults: searchResults
@@ -48,7 +44,6 @@ class App extends Component {
   }
 
   render() {
-
     const styles = {
       root: {
         display: 'flex',
@@ -56,25 +51,21 @@ class App extends Component {
         justifyContent: 'space-around',
         // backgroundColor: '#141B41'
       },
-      gridList: {
-        // width: '90%',
-        overflowY: 'auto',
-        paddingLeft: 75,
-        paddingRight: 75 
-      },
       fixedNav: {
         position: 'fixed',
-        paddingLeft: 75,
-        paddingRight: 75,
-        zIndex: 1,
+        zIndex: 10,
         width: '100%'
       },
       offset: {
         paddingTop: 120
       },
-      resultsPadding: {
-        paddingLeft: 75,
-        paddingRight: 75,
+      displayFixed: {
+        position: 'fixed',
+        bottom: 0,
+        overflow: 'hidden'
+      },
+      centerText: {
+        textAlign: 'center'
       }
     }
 
@@ -82,15 +73,11 @@ class App extends Component {
       <MuiThemeProvider>
         <div className="container-fluid">
           <div className="row" style={styles.fixedNav} >
-            <AppBar title="Movie Roulette" iconClassNameRight="muidocs-icon-navigation-expand-more" />
+            <AppBar title="???" titleStyle={styles.centerText} showMenuIconButton={false} />
             <SearchBar handleResults={this.handleResults} clearResults={this.clearResults} />
           </div>
-          <main className="row" style={{...styles.offset, ...styles.resultsPadding}}>
-          {/* // <GridList 
-          //   cols={1}
-          //   cellHeight='auto'
-          //   padding={1}
-          //   style={styles.gridList} > */}
+          <main className="row" style={{...styles.offset, }}>
+          {/* <main className="row"> */}
             <SearchResults searchResults={this.state.searchResults} addMovie={this.addMovie} watchList={this.state.watchList} />
           </main>
             <BottomNav style={styles.displayFixed} />
