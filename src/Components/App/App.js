@@ -3,6 +3,7 @@ import './App.css'
 import SearchBar from '../SearchBar/SearchBar'
 import SearchResults from '../SearchResults/SearchResults'
 import BottomNav from '../BottomNav/BottomNav'
+import WatchList from '../WatchList/WatchList'
 // Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
@@ -13,7 +14,8 @@ class App extends Component {
     super()
     this.state = {
       searchResults: [],
-      watchList: []
+      watchList: [],
+      view: 'Search' // Search or WatchList
     }
   }
 
@@ -42,6 +44,12 @@ class App extends Component {
       })
     }
   }
+  
+  updateView = (view) => {
+    this.setState({
+      view: view
+    })
+  }
 
   render() {
     const styles = {
@@ -60,7 +68,7 @@ class App extends Component {
         paddingTop: 120
       },
       displayFixed: {
-        position: 'fixed',
+        position: 'sticky',
         bottom: 0,
         overflow: 'hidden'
       },
@@ -77,11 +85,11 @@ class App extends Component {
             <SearchBar handleResults={this.handleResults} clearResults={this.clearResults} />
           </div>
           <main className="row" style={{...styles.offset, }}>
-          {/* <main className="row"> */}
-            <SearchResults searchResults={this.state.searchResults} addMovie={this.addMovie} watchList={this.state.watchList} />
+            {this.state.view === "Search" ? 
+              <SearchResults searchResults={this.state.searchResults} addMovie={this.addMovie} watchList={this.state.watchList} /> :
+              <WatchList watchList={this.state.watchList} /> }
           </main>
-            <BottomNav style={styles.displayFixed} />
-          {/* </GridList> */}
+            <BottomNav updateView={this.updateView} style={styles.displayFixed} />
         </div>
       </MuiThemeProvider>
     )

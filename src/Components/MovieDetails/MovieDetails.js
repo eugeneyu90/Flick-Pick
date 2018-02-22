@@ -9,8 +9,6 @@ import IconButton from 'material-ui/IconButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
 
-
-
 const posterURL = 'http://image.tmdb.org/t/p/original'
 
 // Get IMDB ID from API
