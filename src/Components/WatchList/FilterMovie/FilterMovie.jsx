@@ -3,145 +3,154 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
 import axios from 'axios'
+import FilteredMovie from '../FilteredMovie/FilteredMovie'
 import RaisedButton from 'material-ui/RaisedButton'
-
-
-
-const array = [
-{ name: "Action",
-	value: 28
-},
-{
-	
-}
-
+import Chip from 'material-ui/Chip'
+import _ from 'lodash'
+const genres = [
+    {name:"Action", id:28},
+    {name:"Adventure" ,id:12},
+    {name:"Animation", id:16},
+    {name:"Comedy", id:35},
+    {name:"Crime" , id:80},
+    {name:"Documentary", id:99},
+    {name:"Drama", id:18},
+    {name:"Family", id:10751},
+    {name:"Fantasy", id:14},
+    {name:"History", id:36},
+    {name:"Horror", id:27},
+    {name:"Music", id:10402},
+    {name:"Mystery", id:9648},
+    {name:"Romance", id:10749},
+    {name:"Science Fiction", id:878},
+    {name:"TV Movie", id:10770},
+    {name:"Thriller", id:53},
+    {name:"War", id:10752},
+    {name:"Western", id:37}
 ]
-const genres = {
-	Action: 28,
-	Adventure: 12,
-	Animation: 16,
-	Comedy: 35,
-	Crime: 80,
-	Documentary: 99,
-	Drama: 18,
-	Family: 10751,
-	Fantasy: 14,
-	History: 36,
-	Horror: 27,
-	Music: 10402,
-	Mystery: 9648,
-	Romance: 10749,
-	ScienceFiction: 878,
-	TvMovie: 10770,
-	Thriller: 53,
-	War: 10752,
-	Western: 37
-}
-
 const ids = {
-		28: "Action",
-		12: "Adventure",
-		16: "Animation",
-		35: "Comedy",
-		80: "Crime",
-		99: "Documentary",
-		18: "Drama",
-		10751: "Family",
-		14: "Fantasy",
-		36: "History",
-		27: "Horror",
-		10402: "Music",
-		9648: "Mystery",
-		10749: "Romance",
-		878: "ScienceFiction",
-		10770: "TvMovie",
-		53: "Thriller",
-		10752: "War",
-		37: "Western"
+    28: "Action",
+    12: "Adventure",
+    16: "Animation",
+    35: "Comedy",
+    80: "Crime",
+    99: "Documentary",
+    18: "Drama",
+    10751: "Family",
+    14: "Fantasy",
+    36: "History",
+    27: "Horror",
+    10402: "Music",
+    9648: "Mystery",
+    10749: "Romance",
+    878: "ScienceFiction",
+    10770: "TvMovie",
+    53: "Thriller",
+    10752: "War",
+    37: "Western"
 }
-// selectionRenderer = (values) => {
-// 	switch (values.length) {
-// 			case 0:
-// 			return '';
-// 			case 1:
-// 			return persons[values[0]].name;
-// 			default:
-// 			return `${values.length} names selected`;
-// 	}
-// }
-
-class FilteredMovie extends Component {
-  render() {
-      const filteredMovie = this.props.genreMovie
-      return (
-          <div>
-              {!(filteredMovie === '') ? <h1>Your movie is: {filteredMovie.title}</h1> : ''}
-              {!(filteredMovie === '') ? <img src={`https://image.tmdb.org/t/p/w780/${filteredMovie.poster_path}`}/> : ''}
-          </div>
-      )
-  }
-}
-
-
 class FilterMovie extends Component {
     constructor() {
         super()
         this.state = {
-            genreId: '',
-            genreMovie: ''
+            genreMovie: '',
+            chipText: [],
+            genreList: [{ name: "Action", id: 28 },
+                { name: "Adventure", id: 12 }],
+            value: ''  
         }
     }
-
     update = (e, index, value) => {
-        this.setState({ genreId: value })
+        this.setState(
+            { 
+              genreList: value
+            }
+        )
+    }
+    updateYear = (e, index, value) => {
+        console.log('value', value)
+        this.setState({
+            value: value
+        })
+    }
+    
+    selectionRenderer = (genreList) => {
+        switch (genreList.length) {
+            case 0:
+                return '';
+            case 1:
+                return `${ids[genreList[0]]} selected`;
+            default:
+                return `${genreList.length} names selected`;
+        }
+    }
+    menuItems(genres) {
+        return genres.map((genre) => (
+            <MenuItem
+                key={genre.id}
+                insetChildren={true}
+                checked={this.state.genreList.indexOf(genre.id) > -1}
+                value={genre.id}
+                primaryText={genre.name}
+            />
+        ));
     }
     getRandom = () => {
-        let max = 20
-        let min = 1
-        let num = Math.floor(Math.random() * (max - min + 1)) + min
-        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=2d1610b0077610c43b2fe59ad827cfec&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${num}&with_genres=${this.state.genreId}`)
+        //make lists available a variable then conditions 
+        let multipleGenres = this.state.genreList.toString()
+        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=2d1610b0077610c43b2fe59ad827cfec&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year=${this.state.value}&with_genres=${multipleGenres}`)
+        .then((res)=>{
+            let pageMax = 20
+            let min = 1
+            let totalPages = res.data.total_pages
+            // let totalResults = res.data.total_results
+            if (totalPages < pageMax) {
+                pageMax = totalPages
+            }
+            if (res.data.total_results === 0) {
+                return
+            }
+        let num = Math.floor(Math.random() * (pageMax - min + 1)) + min
+        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=2d1610b0077610c43b2fe59ad827cfec&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${num}&year=${this.state.value}&with_genres=${multipleGenres}`)
             .then((res) => {
                 let movieArray = res.data.results
                 this.setState({
-                    genreMovie: this.randomMovie(movieArray)
+                    genreMovie: this.randomMovie(movieArray) 
                 })
+            })
             })
     }
     randomMovie = (movieList) => {
         let random = Math.floor(Math.random() * movieList.length)
         return movieList[random]
     }
-
     render() {
-        console.log(this.state.genreId)
+        
+        let blah = this.state.genreList.map((id, i) => {
+            return (
+                <Chip containerElement="span" key={i}>{ids[id]}</Chip>
+            )
+        })
+        console.log(this.state.genreList)
         return (
-            <div>
-                <SelectField value={this.state.genreId} onChange={this.update} floatingLabelText="Genre">
-                    <MenuItem value=""></MenuItem>
-                    <MenuItem value={genres.Action} primaryText="Action"/>
-                    <MenuItem value={genres.Adventure} primaryText="Adventure"/>
-                    <MenuItem value={genres.Animation} primaryText="Animation"/>
-                    <MenuItem value={genres.Crime} primaryText="Crime"/>
-                    <MenuItem value={genres.Documentary} primaryText="Documentary"/>
-                    <MenuItem value={genres.Drama} primaryText="Drama"/>
-                    <MenuItem value={genres.Family} primaryText="Family"/>
-                    <MenuItem value={genres.Fantasy} primaryText="Fantasy" />
-                    <MenuItem value={genres.History} primaryText="History"/>
-                    <MenuItem value={genres.Horror} primaryText="Horror"/>
-                    <MenuItem value={genres.Music} primaryText="Music" />
-                    <MenuItem value={genres.Mystery} primaryText="Mystery" />
-                    <MenuItem value={genres.Romance} primaryText="Romance" />
-                    <MenuItem value={genres.ScienceFiction} primaryText="Science Fiction" />
-                    <MenuItem value={genres.Thriller} primaryText="Thriller"/>
-                    <MenuItem value={genres.TvMovie} primaryText="TV Movie" />
-                    <MenuItem value={genres.War} primaryText="War"/>
-                    <MenuItem value={genres.Western} primaryText="Western" />
+            <span>
+                <SelectField value={this.state.value} onChange={this.updateYear} className="select-board-size" hintText="Year">
+                    <MenuItem key={'ncbnf'} value="" primaryText=""></MenuItem>{_.range(2018, 1990 - 1).map(year => <MenuItem key={year} value={year} primaryText={year}></MenuItem>)}
                 </SelectField>
+                <SelectField
+                    multiple={true}
+                    hintText="Select a genre"
+                    value={this.state.genreList}
+                    onChange={this.update}
+                    selectionRenderer={this.selectionRenderer}>
+                    {this.menuItems(genres)}
+                </SelectField>
+                {blah}
+               
                 <RaisedButton onClick={this.getRandom} label="Randomize" primary={true} />
                 <FilteredMovie genreMovie={this.state.genreMovie} />
-            </div>
+            </span>
         )
     }
 }
-
 export default FilterMovie
