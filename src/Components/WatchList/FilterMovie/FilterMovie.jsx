@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem';
 import axios from 'axios'
@@ -55,8 +54,7 @@ class FilterMovie extends Component {
         this.state = {
             genreMovie: '',
             chipText: [],
-            genreList: [{ name: "Action", id: 28 },
-                { name: "Adventure", id: 12 }],
+            genreList: [],
             value: ''  
         }
     }
@@ -68,7 +66,7 @@ class FilterMovie extends Component {
         )
     }
     updateYear = (e, index, value) => {
-        console.log('value', value)
+        // console.log('value', value)
         this.setState({
             value: value
         })
@@ -111,7 +109,7 @@ class FilterMovie extends Component {
                 return
             }
         let num = Math.floor(Math.random() * (pageMax - min + 1)) + min
-        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=2d1610b0077610c43b2fe59ad827cfec&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${num}&year=${this.state.value}&with_genres=${multipleGenres}`)
+        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=2d1610b0077610c43b2fe59ad827cfec&language=en-US&&sort_by=popularity.desc&include_adult=false&include_video=false&page=${num}&year=${this.state.value}&with_genres=${multipleGenres}`)
             .then((res) => {
                 let movieArray = res.data.results
                 this.setState({
@@ -131,25 +129,41 @@ class FilterMovie extends Component {
                 <Chip containerElement="span" key={i}>{ids[id]}</Chip>
             )
         })
-        console.log(this.state.genreList)
+        // console.log(this.state.genreList)
+        const styles = {
+            selectionContainer: {
+                width: '100%',
+            },
+            centerSearchBox: {
+                alignText: 'center',
+                alignItems: 'center',
+            }
+        }
         return (
-            <span>
-                <SelectField value={this.state.value} onChange={this.updateYear} className="select-board-size" hintText="Year">
-                    <MenuItem key={'ncbnf'} value="" primaryText=""></MenuItem>{_.range(2018, 1990 - 1).map(year => <MenuItem key={year} value={year} primaryText={year}></MenuItem>)}
-                </SelectField>
-                <SelectField
-                    multiple={true}
-                    hintText="Select a genre"
-                    value={this.state.genreList}
-                    onChange={this.update}
-                    selectionRenderer={this.selectionRenderer}>
-                    {this.menuItems(genres)}
-                </SelectField>
-                {blah}
-               
+            <div style={styles.selectionContainer}>
+                <div className="row">
+                    <SelectField value={this.state.value} autoWidth={true} onChange={this.updateYear} className="select-board-size" hintText="Year" hintStyle={{alignText: 'center'}}>
+                        <MenuItem key={'blankselection'} value="" primaryText=""></MenuItem>{_.range(2018, 1990 - 1).map(year => <MenuItem key={year} value={year} primaryText={year}></MenuItem>)}
+                    </SelectField>
+                </div>
+                <div className="row">
+                    <SelectField
+                        multiple={true}
+                        hintText="Select a genre"
+                        value={this.state.genreList}
+                        onChange={this.update}
+                        selectionRenderer={this.selectionRenderer}
+                        hintStyle={{alignText: 'center'}}
+                        autoWidth={true} >
+                        {this.menuItems(genres)}
+                    </SelectField>
+                </div>
+                <section className="row" style={{display: 'flex', flexWrap: 'wrap'}}>
+                    {blah}
+                </section>
                 <RaisedButton onClick={this.getRandom} label="Randomize" primary={true} />
                 <FilteredMovie genreMovie={this.state.genreMovie} />
-            </span>
+            </div>
         )
     }
 }

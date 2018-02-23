@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-// import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-
 import axios from 'axios';
 import MovieDetails from '../MovieDetails/MovieDetails'
 
@@ -19,7 +17,7 @@ class SearchResults extends Component {
     this.state = {
       imdbID: '',
       commonHeightArray: [],
-      commonHeight: '',
+      commonHeight: '158vh',
     }
   }
 
@@ -39,6 +37,20 @@ class SearchResults extends Component {
     })
   }
 
+  // updateResizedHeight = () => {
+  //   this.setState({
+  //     commonHeightArray: [1]
+  //   })
+  // }
+
+  // componentDidMount() {
+  //   window.addEventListener("resize", this.updateResizedHeight());
+  // }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener("resize", this.updateResizedHeight());
+  // }
+
   updateHeightArray = (height) => {
     this.setState({
       commonHeightArray: this.state.commonHeightArray.concat(height)
@@ -49,7 +61,6 @@ class SearchResults extends Component {
   calculateCommonHeight = () => {
     const heightArray = this.state.commonHeightArray
     let count = {}
-    let firstEle = heightArray[0]
     heightArray.forEach(height => {
       if(count[height] === undefined)
         count[height] = 1

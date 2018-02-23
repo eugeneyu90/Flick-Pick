@@ -7,7 +7,6 @@ import WatchList from '../WatchList/WatchList'
 // Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
-import { GridList } from 'material-ui/GridList'
 
 class App extends Component {
   constructor() {
@@ -21,6 +20,7 @@ class App extends Component {
 
   handleResults = (searchResults) => {
     this.setState({
+      // Disable this to test code and not retrieve all images
       searchResults: searchResults
     })
   }
@@ -53,42 +53,63 @@ class App extends Component {
 
   render() {
     const styles = {
+      maxDimensions: {
+        height: '100%',
+        width: '100%'
+      },
       root: {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-        // backgroundColor: '#141B41'
-      },
-      fixedNav: {
-        position: 'fixed',
-        zIndex: 10,
-        width: '100%'
-      },
-      offset: {
-        paddingTop: 120
-      },
-      displayFixed: {
-        position: 'sticky',
-        bottom: 0,
-        overflow: 'hidden'
       },
       centerText: {
-        textAlign: 'center'
-      }
+        textAlign: 'center',
+        height: '45px',
+        lineHeight: '45px'
+        
+      },
+      fixedNav: {
+        position: 'absolute',
+        zIndex: 10,
+        overflow: 'hidden',
+        height: '15vh',
+        width: '100%'
+      },
+      fixedBody: {
+        position: 'fixed',
+        overflow: 'auto',
+        width: '100%',
+        top: '15vh',
+        bottom: '5vh',
+        paddingLeft: '20px',
+        paddingRight: '20px',
+        paddingBottom: '25px'
+      },
+      fixedFooter: {
+        position: 'absolute',
+        overflow: 'hidden',
+        bottom: '0vh',
+        width: '100%',
+        height: '8vh',
+        marginBottom: 0,
+        // marginTop: '10px'
+      },
     }
 
     return (
       <MuiThemeProvider>
-        <div className="container-fluid">
+        <div className="container-fluid" style={styles.maxDimensions}>
           <div className="row" style={styles.fixedNav} >
             <AppBar title="???" titleStyle={styles.centerText} showMenuIconButton={false} />
             <SearchBar handleResults={this.handleResults} clearResults={this.clearResults} />
           </div>
-          <main className="row" style={{...styles.offset, }}>
+          <main className="row" style={{...styles.fixedBody}}>
             <SearchResults view={this.state.view} searchResults={this.state.searchResults} addMovie={this.addMovie} watchList={this.state.watchList} />
-            <WatchList view={this.state.view} watchList={this.state.watchList} />
+            <WatchList view={this.state.view} watchList={this.state.watchList} addMovie={this.addMovie}/>
           </main>
-            <BottomNav updateView={this.updateView} style={styles.displayFixed} />
+          <div className="row" style={styles.fixedFooter} >
+            <BottomNav updateView={this.updateView} />
+          </div>
         </div>
       </MuiThemeProvider>
     )

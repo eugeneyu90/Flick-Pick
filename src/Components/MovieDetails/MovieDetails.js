@@ -1,15 +1,33 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Card, CardActions, CardMedia, CardTitle } from 'material-ui/Card';
-// import FlatButton from 'material-ui/FlatButton';
-// import RaisedButton from 'material-ui/RaisedButton';
+import { Card, CardMedia } from 'material-ui/Card';
 import Dialog from 'material-ui/Dialog';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
+import Img from 'react-image'
 
-const posterURL = 'http://image.tmdb.org/t/p/original'
+const posterURL = 'http://image.tmdb.org/t/p/w342'
+const backdropURL = 'http://image.tmdb.org/t/p/w1280'
+// const posterPlaceholder = () => <img src="/filmposter.svg" />
+// const poster_sizes = 
+// [
+//   "w92",
+//   "w154",
+//   "w185",
+//   "w342",
+//   "w500",
+//   "w780",
+//   "original"
+// ]
+// const backdrop_sizes = 
+// [
+//   "w300",
+//   "w780",
+//   "w1280",
+//   "original"
+// ]
+
 
 // Get IMDB ID from API
   // const imdbID = axios({
@@ -76,15 +94,13 @@ class MovieDetails extends Component {
   }
   
   render() {
-    const { title, release_date, overview, poster_path, backdrop_path } = this.props.movie
+    const { title, release_date, overview, poster_path, backdrop_path, vote_average } = this.props.movie
     // console.log(this.props.watchList.find(movie => { return movie.id === Number(this.props.movie.id) }) !== undefined ? true : false)
     // const preloadedImage = 
     const added = '#5BC16C'
     const notAdded = '#D4DDDF'
   
     // const notAdded = '#6c6a6a' //dark gray
-    const paperShadowDefault = 'rgba(0, 0, 0, 0.25) 0px 14px 45px, rgba(0, 0, 0, 0.22) 0px 10px 18px'
-    const paperShadowSelected = 'rgba(76, 199, 97, 0.25) 0px 14px 45px, rgba(76, 199, 97, 0.5) 0px 10px 18px'
     const styles = {
       resultButton: {
         textAlign: 'left',
@@ -96,7 +112,7 @@ class MovieDetails extends Component {
         color: '#D4DDDF'  //grey
       },
       movieBackground: {
-        backgroundImage: `url(${posterURL}${backdrop_path})`,
+        backgroundImage: `url(${backdropURL}${backdrop_path})`,
         backgroundSize: 'cover',
         backgroundColor: 'black',
         backgroundRepeat: 'no-repeat',
@@ -112,7 +128,6 @@ class MovieDetails extends Component {
         // height: this.state.height,
         backgroundColor: 'lightgrey',
         opacity: 0.5,
-
       },
       noPadding: {
         padding: 0
@@ -146,28 +161,16 @@ class MovieDetails extends Component {
     }
     const actions = [
       <IconButton onClick={this.toggleSelect} >
-        <FontIcon className="material-icons.md-48" color={this.state.selected ? added : notAdded }>add</FontIcon>
+        <FontIcon className="material-icons" color={this.state.selected ? added : notAdded }>add</FontIcon>
       </IconButton>
     ]
     // console.log(this.props.movie)
     return (
       <MuiThemeProvider >
-        {/* <div className="col s4 m3 l2" style={styles.noPadding} > */}
         <div className="col s4 m3 l2" style={styles.noPadding} >
           <Card >
-            <CardMedia 
-              style={{...styles.imgHeight, ...styles.imgWrapper}} //fix posters which height discrepancies
-              // onClick={this.handleOpen}
-              // overlayStyle={styles.overStyle}
-              // overlayContentStyle={styles.overStyle}
-              // overlayContainerStyle={styles.overStyle}
-              // overlay={
-              //   <IconButton onClick={this.toggleSelect} >
-              //     <FontIcon className="material-icons" color={this.state.selected ? added : notAdded }>add</FontIcon>
-              //   </IconButton>
-              // }
-            >
-              <img 
+            <CardMedia style={{...styles.imgHeight, ...styles.imgWrapper}}>
+              <Img 
                 onLoad={this.checkDimensions} 
                 src={posterURL+poster_path} 
                 alt={title} 
@@ -176,6 +179,8 @@ class MovieDetails extends Component {
                 style={this.state.hover ? styles.hover : ''}
                 onMouseEnter={this.toggleHover} 
                 onMouseLeave={this.toggleHover}
+                loader={<img src="/filmposter.svg" alt="defaultfilmposter" height={this.props.commonHeight} onClick={this.handleOpen}/>}
+                unloader={<img src="/filmposter.svg" alt="defaultfilmposter" height={this.props.commonHeight} onClick={this.handleOpen}/>}
               />
               <div onClick={this.toggleSelect}>
                 <Paper style={styles.checkmarked} zDepth={3} circle={true} >
@@ -184,10 +189,6 @@ class MovieDetails extends Component {
                   </IconButton>
                 </Paper>
               </div>
-
-              {/* <span style={styles.checkmarked}>
-                  <FontIcon className="material-icons" color={this.state.selected ? added : notAdded }>add</FontIcon>
-              </span> */}
             </CardMedia>
             <Dialog
               title={title}
@@ -200,40 +201,18 @@ class MovieDetails extends Component {
               open={this.state.open}
               onRequestClose={this.handleClose}
             > 
-              <img>
-              
-              </img>
-              <p> Release Date: {release_date} </p>
-              <p> Plot: {overview} </p>
-
+              <img src={posterURL + poster_path} style={{float: 'left', width: '25vw', marginRight: '15px'}} alt="defaultfilmposter"/>
+              <div >
+                <img style={{width: '50px'}} src="/tmdb-logo.svg" alt="defaultfilmposter" />
+                <span>{` ${vote_average}/10`}</span>
+                <p> Release Date: {release_date} </p>
+                <p> Plot: {overview} </p>
+              </div>
             </Dialog>
           </Card>
         </div>
       </MuiThemeProvider>
     )
-
-    // return (
-    //   <div>
-    //     <img color="secondary" src={posterURL+poster_path} width="200" onClick={this.toggle}/>
-    //     <Modal isOpen={this.state.modal} toggle={this.toggle} className={title}>
-    //       <ModalHeader toggle={this.toggle}>{title}</ModalHeader>
-    //       <ModalBody>
-    //         {overview}
-    //       </ModalBody>
-    //       <ModalFooter>
-    //         <Button type="button"
-    //                 color="secondary"
-    //                 onClick={this.toggleSelect}>
-    //           <span className="glyphicon glyphicon-ok"
-    //                 style={this.state.selected ? styles.checked : styles.unchecked}
-    //                 aria-hidden="true">
-    //           </span>
-    //         </Button>
-    //         <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-    //       </ModalFooter>
-    //     </Modal>
-    //   </div>
-    // )
   }
 }
 

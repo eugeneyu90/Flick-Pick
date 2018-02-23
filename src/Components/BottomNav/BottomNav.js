@@ -6,7 +6,8 @@ import Paper from 'material-ui/Paper'
 
 const favoritesIcon = <FontIcon className="material-icons">favorite</FontIcon>
 const searchIcon = <FontIcon className="material-icons">search</FontIcon>
-const recentsIcon = <FontIcon className="material-icons">restore</FontIcon>;
+const randomMovieIcon = <FontIcon className="material-icons"><img src="/randomMovie.svg" width="25px" alt="randomMovie"/></FontIcon>
+const randomMovieSelectedIcon = <FontIcon className="material-icons"><img src="/randomMovieSelected.svg" width="25px" alt="randomMovieSelected"/></FontIcon>
 
 class BottomNav extends Component {
   constructor() {
@@ -33,9 +34,14 @@ class BottomNav extends Component {
             onClick={() => this.select(0, 'Search')}
           />
           <BottomNavigationItem
+            label="Flick?"
+            icon={this.state.selectedIndex === 1 ? randomMovieSelectedIcon : randomMovieIcon}
+            onClick={() => this.select(1, 'Flick')}
+          />
+          <BottomNavigationItem
             label="Watchlist"
             icon={favoritesIcon}
-            onClick={() => this.select(1, 'WatchList')}
+            onClick={() => this.select(2, 'WatchList')}
           />  
         </BottomNavigation>
       </Paper>

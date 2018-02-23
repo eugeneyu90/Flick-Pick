@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import FilterMovie from './FilterMovie/FilterMovie'
-import MovieCarousel from './MovieCarousel/MovieCarousel'
+import {GridList, GridTile} from 'material-ui/GridList'
+import IconButton from 'material-ui/IconButton'
+import FontIcon from 'material-ui/FontIcon'
+// import Img from 'react-image'
+
+
+const posterURL = 'http://image.tmdb.org/t/p/w342'
 
 class WatchList extends Component {
   constructor() {
@@ -21,7 +27,6 @@ class WatchList extends Component {
   calculateCommonHeight = () => {
     const heightArray = this.state.commonHeightArray
     let count = {}
-    let firstEle = heightArray[0]
     heightArray.forEach(height => {
       if(count[height] === undefined)
         count[height] = 1
@@ -49,15 +54,56 @@ class WatchList extends Component {
   }
 
   render() {
-    const {view} = this.props
+    const { view, watchList } = this.props
     let display = (view === 'WatchList')
+
+    const styles = {
+      root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+      },
+      gridList: {
+        display: 'flex',
+        flexWrap: 'nowrap',
+        overflowX: 'auto',
+      },
+      titleStyle: {
+        color: 'white',
+        fontSize: '1rem'
+      },
+    }
+    let watchListJSX = []
+    watchList.length > 0 && (
+      watchListJSX = watchList.map(movie =>
+        <GridTile
+          key={movie.id}
+          title=" "
+          titleStyle={styles.titleStyle}
+          titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+          actionIcon={
+            <IconButton onClick={() => { this.props.addMovie(movie, false) }} >
+              <FontIcon className="material-icons" color="white">delete_forever</FontIcon>
+            </IconButton>
+          }
+        >
+          <img src={posterURL + movie.poster_path} alt={movie.title} />
+        </GridTile>
+      )
+    )
     return (
       <div style={{display: display ? "block" : "none"}}>
-        <MovieCarousel 
-          watchList={this.props.watchList} 
-          commonHeight={this.state.commonHeight}
-          updateHeightArray={this.updateHeightArray} />
-        <FilterMovie />
+        <div className="row">
+          <div style={styles.root}>
+            <GridList style={styles.gridList} cols={2.2}>
+              {watchListJSX}
+            </GridList>
+          </div>
+
+        </div>
+        <div className="row">
+          <FilterMovie />
+        </div>
       </div>
     )
   }

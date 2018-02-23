@@ -4,7 +4,7 @@ const posterURL = 'http://image.tmdb.org/t/p/original'
 class MovieCarousel extends Component {
   render() {
     const { watchList, commonHeight, updateHeightArray } = this.props
-    let watchListJSX = ["HIII"]
+    let watchListJSX = []
     watchList.length > 0 && (
       watchListJSX = watchList.map(movie =>
         <a 
