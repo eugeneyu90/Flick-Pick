@@ -49,8 +49,10 @@ class WatchList extends Component {
   }
 
   render() {
+    const {view} = this.props
+    let display = (view === 'WatchList')
     return (
-      <div>
+      <div style={{display: display ? "block" : "none"}}>
         <MovieCarousel 
           watchList={this.props.watchList} 
           commonHeight={this.state.commonHeight}

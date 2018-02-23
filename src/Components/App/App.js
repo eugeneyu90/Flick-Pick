@@ -85,9 +85,8 @@ class App extends Component {
             <SearchBar handleResults={this.handleResults} clearResults={this.clearResults} />
           </div>
           <main className="row" style={{...styles.offset, }}>
-            {this.state.view === "Search" ? 
-              <SearchResults searchResults={this.state.searchResults} addMovie={this.addMovie} watchList={this.state.watchList} /> :
-              <WatchList watchList={this.state.watchList} /> }
+            <SearchResults view={this.state.view} searchResults={this.state.searchResults} addMovie={this.addMovie} watchList={this.state.watchList} />
+            <WatchList view={this.state.view} watchList={this.state.watchList} />
           </main>
             <BottomNav updateView={this.updateView} style={styles.displayFixed} />
         </div>

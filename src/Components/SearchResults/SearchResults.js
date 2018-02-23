@@ -77,9 +77,9 @@ class SearchResults extends Component {
   }
 
   render() {
-    let { searchResults } = this.props
+    let { searchResults, view } = this.props
     let resultsList = []
-
+    let display = (view === 'Search')
     //TMDB Search Results
     const displayNum = (searchResults.total_results > 0 && searchResults.total_results < 5) ? searchResults.total_results : 20
 
@@ -93,7 +93,7 @@ class SearchResults extends Component {
                       updateHeightArray={this.updateHeightArray} />)
         : console.log('No data is returned')
     return (
-      <div>
+      <div style={{display: display ? "block" : "none"}} >
         {resultsList}
       </div>
     )
