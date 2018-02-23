@@ -3,27 +3,25 @@ import FilterMovie from './FilterMovie/FilterMovie'
 import {GridList, GridTile} from 'material-ui/GridList'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
+import RaisedButton from 'material-ui/RaisedButton'
+import FilteredMovie from'../WatchList/FilteredMovie/FilteredMovie'
 // import Img from 'react-image'
-
-
 const posterURL = 'http://image.tmdb.org/t/p/w342'
-
 class WatchList extends Component {
   constructor() {
     super()
     this.state = {
       commonHeightArray: [],
       commonHeight: '',
+      movie: ''
     }
   }
-
   updateHeightArray = (height) => {
     this.setState({
       commonHeightArray: this.state.commonHeightArray.concat(height)
     })
     this.calculateCommonHeight()
   }
-
   calculateCommonHeight = () => {
     const heightArray = this.state.commonHeightArray
     let count = {}
@@ -52,16 +50,19 @@ class WatchList extends Component {
       })
     }
   }
-
   showDetails = (id) => {
     const watchList = this.props.watchList
-
   }
-
+  randomize = ()=>{
+    let random = this.props.watchList
+    random = Math.floor(Math.random() * this.props.watchList.length)
+    this.setState({
+      movie: this.props.watchList[random]
+    })
+  }
   render() {
     const { view, watchList } = this.props
     let display = (view === 'WatchList')
-
     const styles = {
       root: {
         display: 'flex',
@@ -102,19 +103,18 @@ class WatchList extends Component {
     )
     return (
       <div style={{display: display ? "block" : "none"}}>
-        <div className="row">
+        <div className="row" style={{ textAlign: 'center' }}>
           <div style={styles.root}>
             <GridList style={styles.gridList} cols={2.2}>
               {watchListJSX}
             </GridList>
           </div>
         </div>
-        <div className="row">
-          <FilterMovie />
-        </div>
+        <div className= "row" style={{textAlign: 'center'}}><RaisedButton onClick={this.randomize} label="Randomize" primary={true} /></div>
+        
+        <FilteredMovie className = "row" style={{ textAlign: 'center' }} genreMovie={this.state.movie} />
       </div>
     )
   }
 }
-
 export default WatchList
