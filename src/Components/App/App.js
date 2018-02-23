@@ -14,7 +14,7 @@ class App extends Component {
     this.state = {
       searchResults: [],
       watchList: [],
-      view: 'Search' // Search or WatchList
+      view: 'Search' // Search, Flick, WatchList
     }
   }
 
@@ -100,10 +100,10 @@ class App extends Component {
       <MuiThemeProvider>
         <div className="container-fluid" style={styles.maxDimensions}>
           <div className="row" style={styles.fixedNav} >
-            <AppBar title="???" titleStyle={styles.centerText} showMenuIconButton={false} />
-            <SearchBar handleResults={this.handleResults} clearResults={this.clearResults} />
+            <AppBar title="Flick Pick" titleStyle={styles.centerText} showMenuIconButton={false} />
           </div>
           <main className="row" style={{...styles.fixedBody}}>
+            <SearchBar handleResults={this.handleResults} clearResults={this.clearResults} />
             <SearchResults view={this.state.view} searchResults={this.state.searchResults} addMovie={this.addMovie} watchList={this.state.watchList} />
             <WatchList view={this.state.view} watchList={this.state.watchList} addMovie={this.addMovie}/>
           </main>

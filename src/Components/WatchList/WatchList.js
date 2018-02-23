@@ -53,6 +53,11 @@ class WatchList extends Component {
     }
   }
 
+  showDetails = (id) => {
+    const watchList = this.props.watchList
+
+  }
+
   render() {
     const { view, watchList } = this.props
     let display = (view === 'WatchList')
@@ -72,6 +77,9 @@ class WatchList extends Component {
         color: 'white',
         fontSize: '1rem'
       },
+      noPadding: {
+        padding: 0
+      }
     }
     let watchListJSX = []
     watchList.length > 0 && (
@@ -81,6 +89,7 @@ class WatchList extends Component {
           title=" "
           titleStyle={styles.titleStyle}
           titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+          onClick={() => { this.showDetails(movie.id) }}
           actionIcon={
             <IconButton onClick={() => { this.props.addMovie(movie, false) }} >
               <FontIcon className="material-icons" color="white">delete_forever</FontIcon>
@@ -99,7 +108,6 @@ class WatchList extends Component {
               {watchListJSX}
             </GridList>
           </div>
-
         </div>
         <div className="row">
           <FilterMovie />
