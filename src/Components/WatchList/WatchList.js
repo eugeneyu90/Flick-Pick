@@ -70,6 +70,7 @@ class WatchList extends Component {
         justifyContent: 'space-around',
       },
       gridList: {
+        paddingTop: '20px',
         display: 'flex',
         flexWrap: 'nowrap',
         overflowX: 'auto',

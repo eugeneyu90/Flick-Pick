@@ -96,7 +96,7 @@ class FilterMovie extends Component {
     getRandom = () => {
         //make lists available a variable then conditions 
         let multipleGenres = this.state.genreList.toString()
-        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=2d1610b0077610c43b2fe59ad827cfec&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year=${this.state.value}&with_genres=${multipleGenres}`)
+        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=2d1610b0077610c43b2fe59ad827cfec&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=${this.state.value}&with_genres=${multipleGenres}`)
             .then((res) => {
                 let pageMax = 20
                 let min = 1
@@ -109,7 +109,7 @@ class FilterMovie extends Component {
                     return
                 }
                 let num = Math.floor(Math.random() * (pageMax - min + 1)) + min
-                axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=2d1610b0077610c43b2fe59ad827cfec&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${num}&year=${this.state.value}&with_genres=${multipleGenres}`)
+                axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=2d1610b0077610c43b2fe59ad827cfec&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${num}&primary_release_year=${this.state.value}&with_genres=${multipleGenres}`)
                     .then((res) => {
                         let movieArray = res.data.results
                         this.setState({

@@ -1,5 +1,5 @@
 {
-  "name": "movieroulette",
+  "name": "flick-pick",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,5 +19,23 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "description": "The go-to app to end all struggles to find that one movie to watch on a Friday night. Fellow movie lovers, aren't we tired of finding ourselves in situations where no one can decide or no one wants to take responsibility for selecting a movie?\r Flick Pick was created with Tomy Reyes and Devashish Shrestha over our shared love for movies and also to provide a learning experience while building a React web app using Web APIs and Material-UI.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eugeneyu90/Flick-Pick.git"
+  },
+  "keywords": [
+    "movie",
+    "react",
+    "app",
+    "flick-pick"
+  ],
+  "author": "Eugene Yu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eugeneyu90/Flick-Pick/issues"
+  },
+  "homepage": "https://github.com/eugeneyu90/Flick-Pick#readme"
 }
