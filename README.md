@@ -21,12 +21,12 @@ Flick Pick was created with Tomy Reyes and Devashish Shrestha over our shared lo
 
 ## Demo
 ### Desktop
-<p align="center">
+<kbd align="center">
   <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/Flick-Pick-Demo1.gif">
-</p>
-<p align="center">
+</kbd>
+<kbd align="center">
   <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/Flick-Pick-Demo2.gif">
-</p>
+</kbd>
 
 ### Mobile
 
