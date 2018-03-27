@@ -22,7 +22,7 @@ Flick Pick was created with Tomy Reyes and Devashish Shrestha over our shared lo
 ## Demo
 ### Desktop
 <p align="center">
-  <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/Flick-Pick-Demo1.gif">
+  <img style="border-style: solid" src="https://github.com/eugeneyu90/Flick-Pick/blob/master/Flick-Pick-Demo1.gif">
 </p>
 <p align="center">
   <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/Flick-Pick-Demo2.gif">
