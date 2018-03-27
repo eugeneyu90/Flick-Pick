@@ -56,7 +56,8 @@ class App extends Component {
     const styles = {
       maxDimensions: {
         height: '100%',
-        width: '100%'
+        width: '100%',
+        overflow: 'hidden'
       },
       root: {
         display: 'flex',
@@ -84,7 +85,10 @@ class App extends Component {
         bottom: '5vh',
         paddingLeft: '20px',
         paddingRight: '20px',
-        paddingBottom: '25px'
+        paddingBottom: '25px',
+        overflow: 'scroll',
+        overflowX: 'hidden',
+        
       },
       fixedFooter: {
         position: 'absolute',

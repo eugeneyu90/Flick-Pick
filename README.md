@@ -10,7 +10,7 @@ Flick Pick was created with Tomy Reyes and Devashish Shrestha over our shared lo
 + implementing MovieDB's Web API for retrieving the latest popular movies for the home page and movie details
 + enhancing user interaction using components such as Cards and Modals from Material-UI
 + making the Watchlist to allow users to easily add and remove movies
-+ optmizing performance and responsiveness on mobile devices 
++ optimizing performance and responsiveness on mobile devices 
 
 ## Features
 + Search for any movie
