@@ -24,12 +24,19 @@ Flick Pick was created with Tomy Reyes and Devashish Shrestha over our shared lo
 <kbd align="center">
   <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/Flick-Pick-Demo1.gif">
 </kbd>
+<br>
 <kbd align="center">
   <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/Flick-Pick-Demo2.gif">
 </kbd>
 
 ### Mobile
-
+<kbd align="center">
+  <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/Flick-Pick-Mobile-Demo1.gif">
+</kbd>
+<br>
+<kbd align="center">
+  <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/Flick-Pick-Mobile-Demo2.gif">
+</kbd>
 
 ## This application was built using:
 * [React] (https://reactjs.org/)
