@@ -37,20 +37,6 @@ class SearchResults extends Component {
     })
   }
 
-  // updateResizedHeight = () => {
-  //   this.setState({
-  //     commonHeightArray: [1]
-  //   })
-  // }
-
-  // componentDidMount() {
-  //   window.addEventListener("resize", this.updateResizedHeight());
-  // }
-
-  // componentWillUnmount() {
-  //   window.removeEventListener("resize", this.updateResizedHeight());
-  // }
-
   updateHeightArray = (height) => {
     this.setState({
       commonHeightArray: this.state.commonHeightArray.concat(height)
