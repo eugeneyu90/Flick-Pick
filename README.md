@@ -19,6 +19,23 @@ Flick Pick was created with Tomy Reyes and Devashish Shrestha over our shared lo
 + Randomly select a movie from your Watchlist
 + Randomly select a movie based on a combination of genres and earliest release year
 
+## Upcoming additions
++ Clean up design - fix bugs
++ Database - PostgreSQL
+- User Data from Facebook Login
+- Facebook Data for Liked Movies
+- Saving Watchlist
+
++ Session Storage on Browser for Login
++ Redesign Layout
+- Material-UI? Semantic UI?
+
++ Additional Features
+- Movie Ratings from IMDB, Rotten Tomatoes
+- Watchable where? HBO, ABC or Netflix
+- Utelly API (https://market.mashape.com/utelly/utelly)
+
+
 ## Demo
 ### Desktop
 <kbd align="center">
