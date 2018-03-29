@@ -7,6 +7,9 @@ import FilteredMovie from '../FilteredMovie/FilteredMovie'
 import RaisedButton from 'material-ui/RaisedButton'
 import Chip from 'material-ui/Chip'
 import _ from 'lodash'
+
+const tmdbAPI = '2d1610b0077610c43b2fe59ad827cfec'
+
 const genres = [
     { name: "Action", id: 28 },
     { name: "Adventure", id: 12 },
@@ -93,31 +96,60 @@ class FilterMovie extends Component {
             />
         ));
     }
+  
     getRandom = () => {
-        //make lists available a variable then conditions 
         let multipleGenres = this.state.genreList.toString()
-        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=2d1610b0077610c43b2fe59ad827cfec&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=${this.state.value}&with_genres=${multipleGenres}`)
-            .then((res) => {
-                let pageMax = 20
-                let min = 1
-                let totalPages = res.data.total_pages
-                // let totalResults = res.data.total_results
-                if (totalPages < pageMax) {
-                    pageMax = totalPages
+        axios({
+            method: 'GET',
+            url: 'https://api.themoviedb.org/3/discover/movie',
+            params: {
+                include_adult: 'false',
+                page: '1',
+                language: 'en-US',
+                api_key: tmdbAPI,
+                external_source: 'imdb_id',
+                primary_release_year: this.state.value,
+                with_genres: multipleGenres,
+                sort_by: 'popularity.desc', 
+                include_adult: 'false',
+                include_video: 'false'
+            }
+        }).then(res => {
+           let pageMax = 20 
+           let min = 1 
+           let totalPages = res.data.total_pages 
+
+           if (totalPages < pageMax){
+               pageMax = totalPages 
+           }
+           if (res.data.total_results === 0){
+               return 
+           }
+            let num = Math.floor(Math.random() * (pageMax - min + 1)) + min
+            axios({
+                method: 'GET', 
+                url: 'https://api.themoviedb.org/3/discover/movie',
+                params: {
+                    include_adult: 'false',
+                    page: num,
+                    language: 'en-US',
+                    api_key: tmdbAPI,
+                    external_source: 'imdb_id',
+                    primary_release_year: this.state.value,
+                    with_genres: multipleGenres,
+                    sort_by: 'popularity.desc',
+                    include_adult: 'false',
+                    include_video: 'false', 
                 }
-                if (res.data.total_results === 0) {
-                    return
-                }
-                let num = Math.floor(Math.random() * (pageMax - min + 1)) + min
-                axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=2d1610b0077610c43b2fe59ad827cfec&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${num}&primary_release_year=${this.state.value}&with_genres=${multipleGenres}`)
-                    .then((res) => {
-                        let movieArray = res.data.results
-                        this.setState({
-                            genreMovie: this.randomMovie(movieArray)
-                        })
-                    })
-            })
+            }).then((res)=> {
+                let movieArray = res.data.results
+                this.setState({
+                    genreMovie: this.randomMovie(movieArray)
+                })
+            })  
+        })
     }
+    
     handleRequestDelete = (id) => {
         console.log(id)
         let removedList = this.state.genreList.filter(remove => (remove !== id) ? remove : '')
@@ -125,7 +157,6 @@ class FilterMovie extends Component {
             genreList: removedList
         })
     }
-    // }
     randomMovie = (movieList) => {
         let random = Math.floor(Math.random() * movieList.length)
         return movieList[random]

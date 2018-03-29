@@ -6,6 +6,7 @@ import FontIcon from 'material-ui/FontIcon'
 import RaisedButton from 'material-ui/RaisedButton'
 import FilteredMovie from'../WatchList/FilteredMovie/FilteredMovie'
 // import Img from 'react-image'
+
 const posterURL = 'http://image.tmdb.org/t/p/w342'
 class WatchList extends Component {
   constructor() {
