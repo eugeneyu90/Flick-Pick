@@ -10,9 +10,6 @@ import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton';
 import Flick from '../Flick'
 
-
-
-
 class App extends Component {
   constructor() {
     super()
