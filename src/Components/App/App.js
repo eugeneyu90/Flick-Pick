@@ -20,6 +20,12 @@ class App extends Component {
     }
   }
 
+  // componentDidMount() {
+  //   FB.getLoginStatus(function(response) {
+  //     statusChangeCallback(response);
+  //   });
+  // }
+
   handleResults = (searchResults) => {
     this.setState({
       // Disable this to test code and not retrieve all images
@@ -111,6 +117,8 @@ class App extends Component {
           <div className="row" style={styles.fixedNav} >
             <AppBar style={styles.appBar} title="Flick Pick" titleStyle={styles.centerText} showMenuIconButton={false}/>
             {(this.state.view === 'Search' ) && <SearchBar handleResults={this.handleResults} clearResults={this.clearResults}  />}
+            {/* <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
+            </div> */}
           </div>
           <main className="row" style={{...styles.fixedBody}}>
             <SearchResults view={this.state.view} searchResults={this.state.searchResults} addMovie={this.addMovie} watchList={this.state.watchList} />
