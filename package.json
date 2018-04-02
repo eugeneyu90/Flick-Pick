@@ -37,5 +37,12 @@
   "bugs": {
     "url": "https://github.com/eugeneyu90/Flick-Pick/issues"
   },
-  "homepage": "https://github.com/eugeneyu90/Flick-Pick#readme"
+  "homepage": "https://github.com/eugeneyu90/Flick-Pick#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0"
+  }
 }
