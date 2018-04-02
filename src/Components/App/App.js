@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import './App.css'
-import SearchBar from '../SearchBar/SearchBar'
-import SearchResults from '../SearchResults/SearchResults'
-import BottomNav from '../BottomNav/BottomNav'
-import WatchList from '../WatchList/WatchList'
+import SearchBar from '../SearchBar'
+import SearchResults from '../SearchResults'
+import BottomNav from '../BottomNav'
+import WatchList from '../WatchList'
 // Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton';
-import Flick from '../Flick/Flick'
+import Flick from '../Flick'
 
 class App extends Component {
   constructor() {
@@ -105,7 +105,6 @@ class App extends Component {
         backgroundColor: '#222222'
       }
     }
-
     return (
       <MuiThemeProvider>
         <div className="container-fluid" style={styles.maxDimensions}>
