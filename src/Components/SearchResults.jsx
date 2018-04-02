@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import MovieDetails from '../MovieDetails/MovieDetails'
+import MovieDetails from './MovieDetails'
 
 //API Keys
 // const omdbAPI = '1de557f0'
