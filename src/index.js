@@ -7,23 +7,29 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
 const initialState = {
-  counter: 0
+  watchlist: [],
+  watchedlist: [],
+
 }
 
 const CounterReducer = (state = initialState, action) => {
   //reducer is a Pure function
   switch(action.type) {
-    case 'INCREMENT':
+    case 'ADD_TO_WATCHLIST':
       return {
-        counter: state.counter + 1
+        watchlist: state.watchlist.concat(action.movie)
       }
-    case 'DECREMENT':
+    case 'REMOVE_FROM_WATCHLIST':
       return {
-        counter: state.counter - 1
+        watchlist: state.watchlist.filter(!action.movie)
       }
-    case 'SET_NUMBER':
+    case 'ADD_TO_WATCHEDLIST':
       return {
-        counter: action.number
+        watchedlist: state.watchlist.concat(action.movie)
+      }
+    case 'REMOVE_FROM_WATCHEDLIST':
+      return {
+        watchlist: state.watchlist.filter(!action.movie)
       }
     default:
       return state
