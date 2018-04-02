@@ -3,7 +3,6 @@ import FontIcon from 'material-ui/FontIcon'
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation'
 import Paper from 'material-ui/Paper'
 
-
 const favoritesIcon = <FontIcon className="material-icons">favorite</FontIcon>
 const searchIcon = <FontIcon className="material-icons" >search</FontIcon>
 const randomMovieIcon = <FontIcon className="material-icons"><img src="/randomMovie.svg" width="25px" alt="randomMovie"/></FontIcon>
