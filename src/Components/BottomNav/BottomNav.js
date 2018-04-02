@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper'
 
 
 const favoritesIcon = <FontIcon className="material-icons">favorite</FontIcon>
-const searchIcon = <FontIcon className="material-icons">search</FontIcon>
+const searchIcon = <FontIcon className="material-icons" >search</FontIcon>
 const randomMovieIcon = <FontIcon className="material-icons"><img src="/randomMovie.svg" width="25px" alt="randomMovie"/></FontIcon>
 const randomMovieSelectedIcon = <FontIcon className="material-icons"><img src="/randomMovieSelected.svg" width="25px" alt="randomMovieSelected"/></FontIcon>
 
@@ -25,9 +25,15 @@ class BottomNav extends Component {
   }
 
   render() {
+    const styles = {
+      nav: {
+        backgroundColor: '#222222',
+        textAlign: 'center'
+      }
+    }
     return (
       <Paper zDepth={1}>
-        <BottomNavigation selectedIndex={this.state.selectedIndex} style={{textAlign: 'center'}}>
+        <BottomNavigation selectedIndex={this.state.selectedIndex} style={styles.nav}>
           <BottomNavigationItem
             label="Search"
             icon={searchIcon}
