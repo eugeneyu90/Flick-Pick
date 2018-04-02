@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import FilterMovie from './FilterMovie/FilterMovie'
+import FilterMovie from './FilterMovie'
 import {GridList, GridTile} from 'material-ui/GridList'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
 import RaisedButton from 'material-ui/RaisedButton'
-import FilteredMovie from'../WatchList/FilteredMovie/FilteredMovie'
+import FilteredMovie from'./FilteredMovie'
 // import Img from 'react-image'
 
 const posterURL = 'http://image.tmdb.org/t/p/w342'
@@ -56,10 +56,11 @@ class WatchList extends Component {
   }
   randomize = ()=>{
     let random = this.props.watchList
-    if (this.props.watchList.length === 0 ) {
-      console.log('yo')
-    } else {
-    random = Math.floor(Math.random() * this.props.watchList.length)
+    if (this.props.watchList.length === 0) { 
+     console.log('yo') 
+    } 
+     else {
+      random = Math.floor(Math.random() * this.props.watchList.length)
     this.setState({
       movie: this.props.watchList[random]
     })
