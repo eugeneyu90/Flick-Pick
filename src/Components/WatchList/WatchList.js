@@ -56,10 +56,14 @@ class WatchList extends Component {
   }
   randomize = ()=>{
     let random = this.props.watchList
+    if (this.props.watchList.length === 0 ) {
+      console.log('yo')
+    } else {
     random = Math.floor(Math.random() * this.props.watchList.length)
     this.setState({
       movie: this.props.watchList[random]
     })
+  }
   }
   render() {
     const { view, watchList } = this.props

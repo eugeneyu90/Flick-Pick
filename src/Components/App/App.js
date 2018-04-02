@@ -7,6 +7,7 @@ import WatchList from '../WatchList/WatchList'
 // Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
+import FlatButton from 'material-ui/FlatButton';
 import Flick from '../Flick/Flick'
 
 class App extends Component {
@@ -66,9 +67,11 @@ class App extends Component {
       },
       centerText: {
         textAlign: 'center',
-        height: '45px',
-        lineHeight: '45px'
-        
+        height: '50px',
+        lineHeight: '50px',
+        fontFamily: 'sans-serif',
+        fontSize: '40px',
+        color: 'rgb(0, 188, 212)'
       },
       fixedNav: {
         position: 'absolute',
@@ -87,7 +90,7 @@ class App extends Component {
         paddingRight: '20px',
         paddingBottom: '25px',
         overflow: 'scroll',
-        overflowX: 'hidden',
+        overflowX: 'hidden'
         
       },
       fixedFooter: {
@@ -95,17 +98,19 @@ class App extends Component {
         overflow: 'hidden',
         bottom: '0vh',
         width: '100%',
-        height: '8vh',
+        height: '10vh',
         marginBottom: 0,
-        // marginTop: '10px'
       },
+      appBar: {
+        backgroundColor: '#222222'
+      }
     }
 
     return (
       <MuiThemeProvider>
         <div className="container-fluid" style={styles.maxDimensions}>
           <div className="row" style={styles.fixedNav} >
-            <AppBar title="Flick Pick" titleStyle={styles.centerText} showMenuIconButton={false} />
+            <AppBar style={styles.appBar} title="Flick Pick" titleStyle={styles.centerText} showMenuIconButton={false}/>
             {(this.state.view === 'Search' ) && <SearchBar handleResults={this.handleResults} clearResults={this.clearResults}  />}
           </div>
           <main className="row" style={{...styles.fixedBody}}>
