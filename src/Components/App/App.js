@@ -10,6 +10,9 @@ import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton';
 import Flick from '../Flick'
 
+
+
+
 class App extends Component {
   constructor() {
     super()
@@ -19,6 +22,12 @@ class App extends Component {
       view: 'Search' // Search, Flick, WatchList
     }
   }
+
+  // componentDidMount() {
+  //   FB.getLoginStatus(function(response) {
+  //     statusChangeCallback(response);
+  //   });
+  // }
 
   handleResults = (searchResults) => {
     this.setState({
@@ -111,6 +120,8 @@ class App extends Component {
           <div className="row" style={styles.fixedNav} >
             <AppBar style={styles.appBar} title="Flick Pick" titleStyle={styles.centerText} showMenuIconButton={false}/>
             {(this.state.view === 'Search' ) && <SearchBar handleResults={this.handleResults} clearResults={this.clearResults}  />}
+            {/* <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
+            </div> */}
           </div>
           <main className="row" style={{...styles.fixedBody}}>
             <SearchResults view={this.state.view} searchResults={this.state.searchResults} addMovie={this.addMovie} watchList={this.state.watchList} />
