@@ -21,7 +21,7 @@ Flick Pick was created with Tomy Reyes and Devashish Shrestha over our shared lo
 
 ## Upcoming additions
 + Clean up design - fix bugs
-+ Database - PostgreSQL
++ Database - PostgreSQL - User Model containing Watched List and Favourite Genres
 - User Data from Facebook Login
 - Facebook Data for Liked Movies
 - Saving Watchlist
