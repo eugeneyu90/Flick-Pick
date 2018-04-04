@@ -56,7 +56,7 @@ Flick Pick was created with Tomy Reyes and Devashish Shrestha over our shared lo
 </kbd>
 
 ## This application was built using:
-* [React] (https://reactjs.org/)
-* [Axios] (https://www.npmjs.com/package/axios)
-* [The MovieDB] (https://www.themoviedb.org/)
-* [Material-UI] (http://www.material-ui.com/)
+* [React](https://reactjs.org/)
+* [Axios](https://www.npmjs.com/package/axios)
+* [The MovieDB](https://www.themoviedb.org/)
+* [Material-UI](http://www.material-ui.com/)
