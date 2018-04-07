@@ -1,13 +1,14 @@
 // Update with your config settings.
 
 module.exports = {
-
   development: {
     client: 'pg',
     connection: {
       database: 'flickpick',
       user:     'eugeneyu',
       password: 'eugeneyu'
+      //user: 'tomyreyes',
+      //password: 'tomyreyes',
     },
     pool: {
       min: 2,
