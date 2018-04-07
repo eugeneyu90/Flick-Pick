@@ -4,9 +4,18 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      user: 'tomyreyes',
-      password: 'tomyreyes',
-      database: 'flickpick'
-   }
-  }
-}
+      database: 'flickpick',
+      user:     'eugeneyu',
+      password: 'eugeneyu'
+      //user: 'tomyreyes',
+      //password: 'tomyreyes',
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: 'knex_migrations'
+    }
+  },
+};
