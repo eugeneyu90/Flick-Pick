@@ -1,12 +1,5 @@
 import React, { Component } from 'react'
 import FilterMovie from './FilterMovie'
-import { GridList, GridTile } from 'material-ui/GridList'
-import IconButton from 'material-ui/IconButton'
-import FontIcon from 'material-ui/FontIcon'
-
-// import Img from 'react-image'
-
-const posterURL = 'http://image.tmdb.org/t/p/w342'
 
 class Flick extends Component {
   render() {

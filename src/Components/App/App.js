@@ -7,7 +7,6 @@ import WatchList from '../WatchList'
 // Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
-import FlatButton from 'material-ui/FlatButton';
 import Flick from '../Flick'
 
 class App extends Component {
