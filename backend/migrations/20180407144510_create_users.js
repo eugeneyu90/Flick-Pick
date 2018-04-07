@@ -14,7 +14,8 @@ exports.up = function(knex, Promise) {
         table.json('movies');
         table
           .integer('user_id')
-          .references('users.id');
+          .references('id')
+          .inTable('users');
       }).createTable('watchedlists', function(table) {
         table.increments('id').primary(); 
         table.json('movies');
