@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import FilterMovie from './FilterMovie'
 import {GridList, GridTile} from 'material-ui/GridList'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'

@@ -72,7 +72,7 @@ class SearchResults extends Component {
       })
     }
   }
-
+  
   render() {
     let { searchResults, view } = this.props
     let resultsList = []

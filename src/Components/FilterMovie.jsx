@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import axios from 'axios'
@@ -109,7 +108,6 @@ class FilterMovie extends Component {
         primary_release_year: this.state.value,
         with_genres: multipleGenres,
         sort_by: 'popularity.desc',
-        include_adult: 'false',
         include_video: 'false'
       }
     }).then(res => {
@@ -136,7 +134,6 @@ class FilterMovie extends Component {
           primary_release_year: this.state.value,
           with_genres: multipleGenres,
           sort_by: 'popularity.desc',
-          include_adult: 'false',
           include_video: 'false'
         }
       }).then(res => {
