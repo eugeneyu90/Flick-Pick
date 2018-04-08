@@ -26,7 +26,7 @@ class BottomNav extends Component {
   render() {
     const styles = {
       nav: {
-        backgroundColor: '#222222',
+        backgroundColor: 'rgb(49, 49, 49)',
         textAlign: 'center'
       }
     }

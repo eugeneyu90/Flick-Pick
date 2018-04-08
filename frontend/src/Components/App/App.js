@@ -9,6 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar'
 import Flick from '../Flick'
 
+
 class App extends Component {
   constructor() {
     super()
@@ -107,7 +108,7 @@ class App extends Component {
         marginBottom: 0,
       },
       appBar: {
-        backgroundColor: '#222222'
+        backgroundColor: 'rgb(49, 49, 49)'
       }
     }
     return (
