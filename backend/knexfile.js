@@ -5,10 +5,10 @@ module.exports = {
     client: 'pg',
     connection: {
       database: 'flickpick',
-      user:     'eugeneyu',
-      password: 'eugeneyu'
-      //user: 'tomyreyes',
-      //password: 'tomyreyes',
+      // user:     'eugeneyu',
+      // password: 'eugeneyu'
+      user: 'tomyreyes',
+      password: 'tomyreyes',
     },
     pool: {
       min: 2,
