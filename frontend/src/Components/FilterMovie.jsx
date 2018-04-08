@@ -62,6 +62,7 @@ class FilterMovie extends Component {
     }
   }
   update = (e, index, value) => {
+    console.log(this.state.genreList)
     this.setState({
       genreList: value
     })
@@ -159,7 +160,7 @@ class FilterMovie extends Component {
     return movieList[random]
   }
   render() {
-    let blah = this.state.genreList.map((id, i) => {
+    let chipDisplay = this.state.genreList.map((id, i) => {
       return (
         <Chip
           containerElement="span"
@@ -202,7 +203,7 @@ class FilterMovie extends Component {
         >
           {this.menuItems(genres)}
         </SelectField>
-        <section style={styles.chipWrap}>{blah}</section>
+        <section style={styles.chipWrap}>{chipDisplay}</section>
         <div className="row" style={{ textAlign: 'center' }}>
           <RaisedButton
             onClick={this.getRandom}
