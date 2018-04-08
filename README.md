@@ -39,7 +39,7 @@ Flick Pick was created with Tomy Reyes and Devashish Shrestha over our shared lo
 ## Demo
 ### Desktop
 <kbd align="center">
-  <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/Flick-Pick-Demo1.gif">
+  <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/frontend/Flick-Pick-Demo1.gif">
 </kbd>
 <br>
 <kbd align="center">
@@ -48,11 +48,11 @@ Flick Pick was created with Tomy Reyes and Devashish Shrestha over our shared lo
 
 ### Mobile
 <kbd align="center">
-  <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/Flick-Pick-Mobile-Demo1.gif">
+  <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/frontend/Flick-Pick-Mobile-Demo1.gif">
 </kbd>
 <br>
 <kbd align="center">
-  <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/Flick-Pick-Mobile-Demo2.gif">
+  <img src="https://github.com/eugeneyu90/Flick-Pick/blob/master/frontend/Flick-Pick-Mobile-Demo2.gif">
 </kbd>
 
 ## This application was built using:
