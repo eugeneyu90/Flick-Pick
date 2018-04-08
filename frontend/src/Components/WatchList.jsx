@@ -110,7 +110,7 @@ class WatchList extends Component {
     return (
       <div style={{display: display ? "block" : "none"}}>
         <div className="row" style={{ textAlign: 'center' }}>
-          <div style={styles.root}>"block" : "none"}}>
+          <div style={styles.root}>
             <GridList style={styles.gridList} cols={2.2}>
               {watchListJSX}
             </GridList>
