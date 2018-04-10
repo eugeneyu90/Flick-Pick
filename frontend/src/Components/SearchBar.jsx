@@ -16,7 +16,6 @@ class SearchBar extends Component {
       userInput: ''
     }
   }
-
   // Movie Search using TMDB API
   handleInput = (event) => {
     this.setState({
