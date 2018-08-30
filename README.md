@@ -1,7 +1,7 @@
 # Flick Pick 
 
 The go-to app to end all struggles to find that one movie to watch on a Friday night. Fellow movie lovers, aren't we tired of finding ourselves in situations where no one can decide or no one wants to take responsibility for selecting a movie?
-Flick Pick was created with Tomy Reyes and Devashish Shrestha over our shared love for movies and also to provide a learning experience while building a React web app using Web APIs and Material-UI.
+Flick Pick was created with Tomy Reyes over our shared love for movies and also to provide a learning experience while building a React web app using Web APIs and Material-UI.
 
 ## My roles include the following:
 + structuring the project into modular components
